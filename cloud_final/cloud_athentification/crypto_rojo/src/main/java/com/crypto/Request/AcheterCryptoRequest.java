@@ -9,6 +9,16 @@ public class AcheterCryptoRequest {
     private Crypto crypto;
     private Double quantities;
 
+    private Double commission;
+
+    public Double getCommission() {
+        return commission;
+    }
+
+    public void setCommission(Double commission) {
+        this.commission = commission;
+    }
+
     // Getters and setters
     public Utilisateur getUtilisateur() {
         return utilisateur;

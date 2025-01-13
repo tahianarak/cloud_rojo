@@ -59,7 +59,7 @@ public class DepotRetraitService {
         return true;
     }
 
-    public void acheteCrypto(Utilisateur utilisateur,Crypto crypto,Double quantities)throws Exception
+    public void acheteCrypto(Utilisateur utilisateur,Crypto crypto,Double quantities,Double commission)throws Exception
     {
         if (checkSolde(utilisateur,(crypto.getPrixActuelle().doubleValue()*quantities)) == false)
         {
@@ -92,6 +92,7 @@ public class DepotRetraitService {
         transaction.setVente(BigDecimal.valueOf(0));
         transaction.setUtilisateur(utilisateur);
         transaction.setDateDebut(LocalDateTime.now());
+        transaction.setCommission(BigDecimal.valueOf(commission));
 
         myTransactionRepository.save(transaction);
         System.out.println("transaction done");
