@@ -50,38 +50,53 @@
 </head>
 
 <body>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+      
+      <div class="d-flex justify-content-center py-4">
+        <a href="index.html" class="logo d-flex align-items-center w-auto">
+          <img src="assets/img/logo.png" alt="">
+          <span class="d-none d-lg-block text-light">Crypto</span>
+        </a>
+      </div><!-- End Logo -->
 
-  <!-- ======= Header ======= -->
-<%@ include file="header.jsp" %>
-  <!-- End Header -->
+      <div class="card mb-3" style="border: 1px solid #2e3b31; background-color: #1b1b1b; color: #ffffff;">
 
-  <!-- ======= Sidebar ======= -->
-  <%@ include file="sidebar.jsp" %>
- <!-- End Sidebar-->
+        <div class="card-body">
 
-  <main id="main" class="main">
-    <section class="section">
-        <form action="login" method="POST" class="container mt-5 p-4 border rounded bg-light shadow">
-    <h1>Login </h1>
+          <div class="pt-4 pb-2">
+            <h5 class="card-title text-center pb-0 fs-4 text-light">Login to Your Account</h5>
+          </div>
+
+          <form action="login" method="POST" class="row g-3 needs-validation" novalidate="">
+
             <div class="mb-3">
-                <label for="email" class="form-label">Email :</label>
-                <input type="email" id="email" name="email" class="form-control" required>
+              <label for="email" class="form-label text-light">Email :</label>
+              <input type="email" id="email" name="email" class="form-control" required style="background-color: #333; color: #fff; border-color: #2e3b31;">
             </div>
+
             <div class="mb-3">
-                <label for="mdp" class="form-label">Mot de Passe :</label>
-                <input type="password" id="mdp" name="mdp" class="form-control" required>
+              <label for="mdp" class="form-label text-light">Mot de Passe :</label>
+              <input type="password" id="mdp" name="mdp" class="form-control" required style="background-color: #333; color: #fff; border-color: #2e3b31;">
             </div>
+
             <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Se connecter</button>
+              <button type="submit" class="btn btn-success">Se connecter</button>
             </div>
-        </form>         
-    </section>
+          </form>                   
+        </div>
+      </div>
 
-  </main><!-- End #main -->
+      <div class="credits text-light mt-3">
+        Designed by <a href="https://bootstrapmade.com/" class="text-success">Andria</a>
+      </div>
 
-  <!-- ======= Footer ======= -->
-  <%@ include file="footer.jsp" %>
-<!-- End Footer -->
+    </div>
+  </div>
+</div>
+
+
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
