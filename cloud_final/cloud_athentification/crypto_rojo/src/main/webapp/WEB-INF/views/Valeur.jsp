@@ -1,6 +1,7 @@
+<%@ page import="com.crypto.model.cryptos.Transaction" %>
+<%@ page import="java.util.List" %>
 
-
-      <!DOCTYPE html>
+<!DOCTYPE html>
       <html lang="en">
 
       <head>
@@ -54,14 +55,14 @@
       <h2 class="text-center mb-0">Filtre</h2>
     </div>
     <div class="card-body">
-      <form action="/ValiderRetrait" method="post">
+      <form action="/filtreMoneyByDate" method="post">
         <!-- DateTime Picker -->
         <div class="mb-3">
           <label for="datetime" class="form-label">Filtrer par Date et Heure Max</label>
           <input 
             type="datetime-local" 
             id="datetime" 
-            name="datetime" 
+            name="date"
             class="form-control form-control-lg" 
             placeholder="Sélectionnez une date et une heure"
           >
@@ -80,24 +81,30 @@
             <div class="card">
             <div class="card-body">
               <h5 class="card-title">Table </h5>
-
+                <%
+                    List<Transaction> transactionList = (List<Transaction>) request.getAttribute("transaction_list");
+                %>
               <!-- Table with stripped rows -->
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">idUser</th>
+                    <th scope="col">User</th>
                     <th scope="col">TotalAchat</th>
                     <th scope="col">TotalVente</th>
                     <th scope="col">Valeur portefeuille</th>
+                      <th scope="col">Valeur Crypto</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                  </tr>
+                <% if(transactionList != null) { for (Transaction transaction : transactionList){%>
+                <tr>
+                    <td><%= transaction.getUtilisateur().getNom() %></td>
+                    <td><%= transaction.getAchat() %></td>
+                    <td><%= transaction.getVente() %></td>
+                    <td><%= transaction.getArgent() %></td>
+                    <td><%= transaction.getValeurCryptoReste() %></td>
+                </tr>
+                <%}}%>
 
                 </tbody>
               </table>
