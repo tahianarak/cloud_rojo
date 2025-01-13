@@ -53,6 +53,18 @@ public class AchatController {
     String url = "http://localhost:7070/api/crypto";
     String urlUser="http://localhost:8000/api/verify/token";
 
+    @PostMapping("/filtreMoneyByDate")
+    public String filtreByDate(HttpServletRequest request)
+    {
+        LocalDateTime date = LocalDateTime.parse(request.getParameter("date"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        request.setAttribute("transaction_list",transactionService.moneyDate(date));
+        return "Valeur";
+    }
+    @GetMapping("/getFormFiltreDAte")
+    public String getFormFiltreDate()
+    {
+        return "Valeur";
+    }
     public String getUrl() {
         return url;
     }
@@ -115,16 +127,5 @@ public class AchatController {
         }
     }
 
-    @PostMapping("/filtreMoneyByDate")
-    public String filtreByDate(HttpServletRequest request)
-    {
-        LocalDateTime date = LocalDateTime.parse(request.getParameter("date"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        request.setAttribute("transaction_list",transactionService.moneyDate(date));
-        return "MoneyDate";
-    }
-    @GetMapping("/getFormFiltreDAte")
-    public String getFormFiltreDate()
-    {
-        return "MoneyDate";
-    }
+
 }
