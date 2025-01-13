@@ -60,7 +60,7 @@ public class AchatController {
         request.setAttribute("transaction_list",transactionService.moneyDate(date));
         return "Valeur";
     }
-    @GetMapping("/getFormFiltreDAte")
+    @GetMapping("/getFormFiltreDate")
     public String getFormFiltreDate()
     {
         return "Valeur";
