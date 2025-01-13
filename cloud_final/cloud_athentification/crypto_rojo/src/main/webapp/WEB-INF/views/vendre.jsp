@@ -61,29 +61,33 @@
 %>
 
   <main id="main" class="main">
-    <section class="section">
-       <form action="insertVente" method="post" class="container mt-5 p-4 border rounded bg-light shadow">
-            <!-- Sélectionner un Bitcoin -->
-            <div class="mb-3">
-                <label for="bitcoin1" class="form-label">Sélectionner Bitcoin 1 :</label>
-                <select name="idCrypto" id="bitcoin1" class="form-select" required>
-                    <% for(Crypto cryptos : cryptosList) { %>
-                        <option value="<%=cryptos.getIdCrypto()%>"><%=cryptos.getLibelle()%></option>
-                    <% } %>
-                </select>
-            </div>
 
-            <div class="mb-3">
-                <label for="quantity1" class="form-label">Quantité :</label>
-                <input type="number" name="quantite" id="quantity1" class="form-control" required>
-            </div>
+       <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold mb-4">Vendre Crypto</h5>
+                                  <div class="container mt-5 p-4 border rounded bg-light shadow" > 
+                                  <form action="insertVente" method="post" >
+                                    <!-- Sélectionner un Bitcoin -->
+                                    <div class="mb-3">
+                                        <label for="bitcoin1" class="form-label">Selection crypto :</label>
+                                        <select name="idCrypto" id="bitcoin1" class="form-select" required>
+                                            <% for(Crypto cryptos : cryptosList) { %>
+                                                <option value="<%=cryptos.getIdCrypto()%>"><%=cryptos.getLibelle()%></option>
+                                            <% } %>
+                                        </select>
+                                    </div>
 
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Soumettre</button>
-            </div>
-        </form>
-
-    </section>
+                                    <div class="mb-3">
+                                        <label for="quantity1" class="form-label">Quantite :</label>
+                                        <input type="number" name="quantite" id="quantity1" class="form-control" required>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">Soumettre</button>
+                                    </div>
+                                  </form>  
+                                  </div>                       
+                    </div>
+                </div>
 
   </main><!-- End #main -->
 
