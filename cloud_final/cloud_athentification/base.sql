@@ -90,11 +90,21 @@ CREATE TABLE transaction(
    date_debut TIMESTAMP,
    id_crypto INTEGER NOT NULL,
    id_utilisateur INTEGER NOT NULL,
+   commission NUMERIC(15,2)  ,
    PRIMARY KEY(id_transaction),
    FOREIGN KEY(id_crypto) REFERENCES crypto(id_crypto),
    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
 
+CREATE TABLE commission
+(
+    id_commission serial PRIMARY KEY,
+    date_ens TIMESTAMP not null,
+    pourcentage  NUMERIC(5,2),
+    id_crypto INTEGER not null,
+    FOREIGN KEY(id_crypto) REFERENCES crypto(id_crypto),
+    description VARCHAR(100)
+);
 --DATA
 INSERT INTO utilisateur (nom, date_ens, date_naissance, email, mdp, tentative_restant)
 VALUES

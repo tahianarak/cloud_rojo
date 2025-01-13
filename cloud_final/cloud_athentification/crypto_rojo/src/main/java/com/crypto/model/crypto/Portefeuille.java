@@ -1,40 +1,31 @@
 package com.crypto.model.crypto;
 
 import java.sql.*;
-import java.sql.Date;
-import java.util.*;
-
-
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Portefeuille {
 
     int idPortefeuille;
-     double entree;
-     double sortie;
-     java.sql.Date dateEns; // Utilisation de java.sql.Date
-     int idCrypto;
-     int idUtilisateur;
+    double entree;
+    double sortie;
+    java.sql.Timestamp dateEns; // Utilisation de java.sql.Timestamp pour inclure l'heure
+    int idCrypto;
+    int idUtilisateur;
 
-     public  static  boolean verifyIfNotEmpty(Connection connection,int idUtilisateur,int idCrypto)throws  Exception
-     {
-         double qtCrypto=Portefeuille.getQtCryptoOf(connection,idUtilisateur,idCrypto);
-         if(qtCrypto<=0){
-             return false;
-         }
-         return true;
-     }
-    public static  double getQtCryptoOf(Connection connection,int idUtilisateur,int idCrypto)throws  Exception{
-        String sql=" select sum(entree-sortie) as qt from portefeuille where id_crypto=? and id_utilisateur=?";
+    public static boolean verifyIfNotEmpty(Connection connection, int idUtilisateur, int idCrypto) throws Exception {
+        double qtCrypto = Portefeuille.getQtCryptoOf(connection, idUtilisateur, idCrypto);
+        return qtCrypto > 0;
+    }
+
+    public static double getQtCryptoOf(Connection connection, int idUtilisateur, int idCrypto) throws Exception {
+        String sql = "SELECT SUM(entree - sortie) AS qt FROM portefeuille WHERE id_crypto = ? AND id_utilisateur = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, idCrypto);
-            ps.setInt(2,idUtilisateur);
+            ps.setInt(2, idUtilisateur);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-
-               return rs.getDouble("qt");
+                return rs.getDouble("qt");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -43,7 +34,7 @@ public class Portefeuille {
     }
 
     // Constructeur
-    public Portefeuille(int idPortefeuille, double entree, double sortie, java.sql.Date dateEns, int idCrypto, int idUtilisateur) {
+    public Portefeuille(int idPortefeuille, double entree, double sortie, java.sql.Timestamp dateEns, int idCrypto, int idUtilisateur) {
         this.idPortefeuille = idPortefeuille;
         this.entree = entree;
         this.sortie = sortie;
@@ -53,7 +44,7 @@ public class Portefeuille {
     }
 
     // Constructeur sans ID (pour la création)
-    public Portefeuille(double entree, double sortie, java.sql.Date dateEns, int idCrypto, int idUtilisateur) {
+    public Portefeuille(double entree, double sortie, java.sql.Timestamp dateEns, int idCrypto, int idUtilisateur) {
         this.entree = entree;
         this.sortie = sortie;
         this.dateEns = dateEns;
@@ -86,11 +77,11 @@ public class Portefeuille {
         this.sortie = sortie;
     }
 
-    public java.sql.Date getDateEns() {
+    public java.sql.Timestamp getDateEns() {
         return dateEns;
     }
 
-    public void setDateEns(java.sql.Date dateEns) {
+    public void setDateEns(java.sql.Timestamp dateEns) {
         this.dateEns = dateEns;
     }
 
@@ -112,7 +103,7 @@ public class Portefeuille {
 
     // Créer un portefeuille
     public static void create(Connection connection, Portefeuille portefeuille) throws SQLException {
-        String sql = "INSERT INTO portefeuille(entree, sortie, date_ens, id_crypto, id_utilisateur) VALUES (?, ?, CURRENT_DATE, ?, ?)";
+        String sql = "INSERT INTO portefeuille(entree, sortie, date_ens, id_crypto, id_utilisateur) VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setDouble(1, portefeuille.getEntree());
             ps.setDouble(2, portefeuille.getSortie());
@@ -133,7 +124,7 @@ public class Portefeuille {
                         rs.getInt("id_porte_feuille"),
                         rs.getDouble("entree"),
                         rs.getDouble("sortie"),
-                        rs.getDate("date_ens"), // Récupère la date avec java.sql.Date
+                        rs.getTimestamp("date_ens"), // Récupère la date avec java.sql.Timestamp
                         rs.getInt("id_crypto"),
                         rs.getInt("id_utilisateur")
                 );
@@ -144,7 +135,7 @@ public class Portefeuille {
 
     // Mettre à jour un portefeuille
     public static void update(Connection connection, Portefeuille portefeuille) throws SQLException {
-        String sql = "UPDATE portefeuille SET entree = ?, sortie = ?, date_ens = CURRENT_DATE, id_crypto = ?, id_utilisateur = ? WHERE id_porte_feuille = ?";
+        String sql = "UPDATE portefeuille SET entree = ?, sortie = ?, date_ens = CURRENT_TIMESTAMP, id_crypto = ?, id_utilisateur = ? WHERE id_porte_feuille = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setDouble(1, portefeuille.getEntree());
             ps.setDouble(2, portefeuille.getSortie());
@@ -175,7 +166,7 @@ public class Portefeuille {
                         rs.getInt("id_porte_feuille"),
                         rs.getDouble("entree"),
                         rs.getDouble("sortie"),
-                        rs.getDate("date_ens"), // Utilisation de getDate pour récupérer java.sql.Date
+                        rs.getTimestamp("date_ens"), // Utilisation de getTimestamp pour récupérer java.sql.Timestamp
                         rs.getInt("id_crypto"),
                         rs.getInt("id_utilisateur")
                 ));
