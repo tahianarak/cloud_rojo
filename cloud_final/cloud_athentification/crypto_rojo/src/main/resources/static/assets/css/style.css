@@ -13,7 +13,57 @@
   scroll-behavior: smooth;
 }
 
+
 body {
+  /* Fond sombre pour l'ensemble de la page */
+}
+
+.container {
+  margin-top: 50px;
+}
+
+.card {
+  border-radius: 15px;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+h5.card-title {
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius: 10px;
+}
+
+.btn-primary {
+  background-color: #28a745; /* Vert crypto */
+  border-color: #28a745;
+}
+
+.btn-primary:hover {
+  background-color: #218838; /* Vert plus foncé au survol */
+  border-color: #218838;
+}
+
+.text-light {
+  color: #d1d1d1 !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+body {
+  background-color: #7d7a7a;
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
   color: #444444;
