@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cloud  # Cette variable crée automatiquement la base de données "cloud"
+    ports:
+      - "5431:5432"
+    volumes:
+      - ./base.sql:/docker-entrypoint-initdb.d/base.sql  # Monte le fichier backup.sql dans le conteneur
+    networks:
+      - symfony-network
+
+  symfony:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: apicloud_final
+    container_name: symfony-app
+    environment:
+      DATABASE_URL: "pgsql://postgres:postgres@postgres:5432/cloud"
+      SYMFONY_ENV: dev
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    networks:
+      - symfony-network
+
+  springboot:
+    build:
+      context: .
+      dockerfile: Dockerfile2  
+    image: springboot-app
+    container_name: springboot-app
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/cloud"
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update  
+    ports:
+      - "7070:7070"
+    depends_on:
+      - postgres
+    networks:
+      - symfony-network
+
+networks:
+  symfony-network:
+    driver: bridge
