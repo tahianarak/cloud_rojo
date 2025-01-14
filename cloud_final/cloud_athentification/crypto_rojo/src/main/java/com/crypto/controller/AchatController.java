@@ -7,6 +7,7 @@ import com.crypto.model.Utilisateur;
 
 import com.crypto.service.UserService;
 import com.crypto.service.crypto.MyCryptoService;
+import com.crypto.service.crypto.TransactionService;
 import com.crypto.service.utilisateur.UtilisateurService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,7 +25,12 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class AchatController {
@@ -41,9 +47,24 @@ public class AchatController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    TransactionService transactionService;
+
     String url = "http://localhost:7070/api/crypto";
     String urlUser="http://localhost:8000/api/verify/token";
 
+    @PostMapping("/filtreMoneyByDate")
+    public String filtreByDate(HttpServletRequest request)
+    {
+        LocalDateTime date = LocalDateTime.parse(request.getParameter("date"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        request.setAttribute("transaction_list",transactionService.moneyDate(date));
+        return "Valeur";
+    }
+    @GetMapping("/getFormFiltreDate")
+    public String getFormFiltreDate()
+    {
+        return "Valeur";
+    }
     public String getUrl() {
         return url;
     }
@@ -87,6 +108,7 @@ public class AchatController {
             acheterCryptoRequest.setUtilisateur(utilisateur);
             acheterCryptoRequest.setCrypto(crypto);
             acheterCryptoRequest.setQuantities(quantities);
+            acheterCryptoRequest.setCommission((double) 0);
             System.out.println(this.getUrl() + "/acheter");
             ResponseEntity<String> responsePost = new RestTemplate().postForEntity(this.getUrl() + "/acheter", acheterCryptoRequest, String.class);
             PrintWriter writer = response.getWriter();
@@ -104,5 +126,6 @@ public class AchatController {
                     + "</script>");
         }
     }
+
 
 }
