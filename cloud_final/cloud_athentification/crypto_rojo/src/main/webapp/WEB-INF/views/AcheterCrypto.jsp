@@ -51,7 +51,7 @@
                         <h5 class="card-title fw-semibold mb-4">Acheter Crypto</h5>
                                   <div class="container mt-5 p-4 border rounded bg-light shadow" > 
                              
-                                        <form action="/cryptos/acheterCrypto" method="post">
+                                        <form action="/crypto/acheterCrypto" method="post">
                                                                         <div class="mb-3">
                                                                             <label for="bloc" class="form-label">Choisir Crypto</label>
                                                                             <select id="bloc" class="form-select" name="cryptos">

@@ -43,6 +43,14 @@
         </a>
       </li>
 
+
+      <li class="nav-item">
+              <a class="nav-link collapsed" href="/commission/filtres">
+                <i class="bi bi-grid"></i>
+                <span>Resume commission</span>
+              </a>
+            </li>
+
        
 
 
