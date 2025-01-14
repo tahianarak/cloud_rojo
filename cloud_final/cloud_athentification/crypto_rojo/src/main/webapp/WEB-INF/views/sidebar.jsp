@@ -36,6 +36,17 @@
         </a>
       </li>
 
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="/getFormFiltreDate">
+          <i class="bi bi-grid"></i>
+          <span>Valeur</span>
+        </a>
+      </li>
+
+       
+
+
+
 
 
 

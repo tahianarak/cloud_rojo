@@ -33,6 +33,39 @@ public class Transaction {
     @JoinColumn(name = "id_utilisateur", nullable = false)
     private Utilisateur utilisateur;
 
+
+
+    @Transient
+    private BigDecimal argent;
+
+    @Transient
+    private BigDecimal valeurCryptoReste;
+    @Column(name = "commission")
+    private BigDecimal commission;
+
+    public BigDecimal getValeurCryptoReste() {
+        return valeurCryptoReste;
+    }
+
+    public void setValeurCryptoReste(BigDecimal valeurCryptoReste) {
+        this.valeurCryptoReste = valeurCryptoReste;
+    }
+
+    public BigDecimal getCommission() {
+        return commission;
+    }
+
+    public void setCommission(BigDecimal commission) {
+        this.commission = commission;
+    }
+
+    public BigDecimal getArgent() {
+        return argent;
+    }
+
+    public void setArgent(BigDecimal argent) {
+        this.argent = argent;
+    }
     // Getters et setters
     public Long getIdTransaction() {
         return idTransaction;
