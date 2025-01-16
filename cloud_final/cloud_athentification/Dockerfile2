@@ -1,32 +1,19 @@
-# Étape 1: Utiliser une image de base pour Maven pour construire l'application
-FROM maven:3.8.6-openjdk-17 AS build
+# Étape de construction
+FROM maven:3.8-openjdk-17 AS build
+WORKDIR /crypto_rojo
 
-# Définir le répertoire de travail
-WORKDIR /app
-
-# Copier le fichier pom.xml et télécharger les dépendances
-COPY pom.xml .
-
-# Télécharger toutes les dépendances Maven nécessaires
-RUN mvn dependency:go-offline
-
-# Copier le code source dans le conteneur
-COPY src ./src
-
-# Construire l'application (packager le JAR)
+# Copier le fichier pom.xml pour télécharger les dépendances Maven
+COPY crypto_rojo/* .
+RUN mvn dependency:go-offline -B
 RUN mvn clean package -DskipTests
 
-# Étape 2: Utiliser une image Java 17 pour exécuter l'application
+# Étape d'exécution
 FROM openjdk:17-jdk-slim
+WORKDIR /crypto_rojo
 
-# Définir le répertoire de travail
-WORKDIR /app
+# Copier les fichiers du projet depuis l'étape de construction
+COPY --from=build /crypto_rojo .
 
-# Copier le fichier JAR généré depuis l'étape de build
-COPY --from=build /app/target/crypto_rojo-0.0.1-SNAPSHOT.jar /app/crypto_rojo.jar
+# Exécuter l'application directement avec Maven
+ENTRYPOINT ["./mvnw", "spring-boot:run"]
 
-# Exposer le port sur lequel l'application Spring Boot va écouter
-EXPOSE 7070
-
-# Commande pour exécuter l'application Spring Boot
-ENTRYPOINT ["java", "-jar", "cryptos.jar"]
