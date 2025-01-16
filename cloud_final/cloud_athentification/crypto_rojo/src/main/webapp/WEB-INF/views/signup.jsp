@@ -11,8 +11,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,46 +53,63 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
-<%@ include file="header.jsp" %>
-  <!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
-  <%@ include file="sidebar.jsp" %>
  <!-- End Sidebar-->
 
-  <main id="main" class="main">
-    <section class="section">
-        <form action="inscrire" method="post" class="container mt-5 p-4 border rounded bg-light shadow">
-    <h1>Inscription </h1>
-    <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" name="email" id="email" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="nom" class="form-label">Nom</label>
-        <input type="text" name="nom" id="nom" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="date_naissance" class="form-label">Date de naissance</label>
-        <input type="date" name="date_naissance" id="date_naissance" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="mdp" class="form-label">Mot de passe</label>
-        <input type="password" name="mdp" id="mdp" class="form-control" required>
-    </div>
-    <div class="d-grid gap-2">
-        <input type="submit" value="Valider" class="btn btn-primary">
-    </div>
-</form>
 
-         
-    </section>
 
-  </main><!-- End #main -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-2  flex-column align-items-center justify-content-center">
+      
+      <div class="d-flex justify-content-center py-4">
+        <a href="index.html" class="logo d-flex align-items-center w-auto">
+          <img src="assets/img/logo.png" alt="">
+          <span class="d-none d-lg-block text-light">Crypto</span>
+        </a>
+      </div><!-- End Logo -->
+      <div class="card mb-6" style="border: 1px solid #2e3b31; background-color: #1b1b1b; color: #ffffff;">
+        <div class="card-body">
+          <div class="pt-4 pb-2">
+            <h5 class="card-title text-center pb-0 fs-4 text-light">Inscription</h5>
+          </div>
 
-  <!-- ======= Footer ======= -->
-  <%@ include file="footer.jsp" %>
+              <form action="inscrire" method="post" >
+                  <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" name="email" id="email" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="nom" class="form-label">Nom</label>
+                      <input type="text" name="nom" id="nom" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="date_naissance" class="form-label">Date de naissance</label>
+                      <input type="date" name="date_naissance" id="date_naissance" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="mdp" class="form-label">Mot de passe</label>
+                      <input type="password" name="mdp" id="mdp" class="form-control" required>
+                  </div>
+                  <div class="d-grid gap-2">
+                      <input type="submit" value="Valider" class="btn btn-primary">
+                  </div>
+              </form>     
+
+        </div>
+      </div>
+  <center>
+      <div class="credits text-light mt-3">
+        Designed by <a href="https://bootstrapmade.com/" class="text-success">Andria</a>
+      </div>
+  </center>
+    </div>
+  </div>
+</div>
+
+
+
+
 <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

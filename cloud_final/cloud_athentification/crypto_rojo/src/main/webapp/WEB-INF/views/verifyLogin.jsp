@@ -84,6 +84,14 @@
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-success">Se connecter</button>
             </div>
+
+
+            <div class="mb-3">
+           
+              <p> Vous n'avez pas de compte ! <a href="/inscription/signup">s'inscrire</p> </h3>
+            </div>
+
+
           </form>                   
         </div>
       </div>

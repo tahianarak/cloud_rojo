@@ -16,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/auth")
@@ -94,5 +97,11 @@ public class AuthentificationController {
         mv.addObject("error",response.getBody().get("error"));
         return mv;
     }
+
+    @GetMapping("/home")
+    public String getMethodName() {
+        return "home";  
+    }
+    
 
 }
