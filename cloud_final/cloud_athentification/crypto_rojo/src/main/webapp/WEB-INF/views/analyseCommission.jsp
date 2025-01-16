@@ -124,8 +124,7 @@
       <%@ include file="sidebar.jsp" %>
 
 
-  <!-- Main Content -->
-  <main class="container">
+  <main id="main" class="main">
     <div class="form-container">
       <h2>Analyse des Commissions</h2>
 
@@ -172,11 +171,11 @@
         </div>
       </form>
     </div>
-  </main>
+
 
   <!-- Results Table -->
   <div class="container mt-5">
-    <h3>Résultats de l'analyse</h3>
+    <h3>Resultats de l'analyse</h3>
     <table>
       <thead>
         <tr>
@@ -198,7 +197,7 @@
       </tbody>
     </table>
   </div>
-
+  </main>
   <!-- Vendor JS Files -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
    <%@ include file="footer.jsp" %>
