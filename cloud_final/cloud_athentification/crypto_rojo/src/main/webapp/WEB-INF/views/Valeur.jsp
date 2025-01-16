@@ -48,35 +48,38 @@
       <%@ include file="sidebar.jsp" %>
       <!-- End Sidebar-->
 
-      <div class="card">
-<div class="container mt-5">
-  <div class="card shadow-sm">
-    <div class="card-header bg-primary text-white">
-      <h2 class="text-center mb-0">Filtre</h2>
-    </div>
-    <div class="card-body">
-      <form action="/filtreMoneyByDate" method="post">
-        <!-- DateTime Picker -->
-        <div class="mb-3">
-          <label for="datetime" class="form-label">Filtrer par Date et Heure Max</label>
-          <input 
-            type="datetime-local" 
-            id="datetime" 
-            name="date"
-            class="form-control form-control-lg" 
-            placeholder="Sélectionnez une date et une heure"
-          >
+
+  <main id="main" class="main">
+
+    <div class="card">
+    <div class="container mt-5">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h2 class="text-center mb-0">Filtre</h2>
         </div>
-        <!-- Submit Button -->
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary btn-lg w-50">
-            Valider
-          </button>
+        <div class="card-body">
+          <form action="/filtreMoneyByDate" method="post">
+            <!-- DateTime Picker -->
+            <div class="mb-3">
+              <label for="datetime" class="form-label">Filtrer par Date et Heure Max</label>
+              <input 
+                type="datetime-local" 
+                id="datetime" 
+                name="date"
+                class="form-control form-control-lg" 
+                placeholder="Sélectionnez une date et une heure"
+              >
+            </div>
+            <!-- Submit Button -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary btn-lg w-50">
+                Valider
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
-</div>
 
             <div class="card">
             <div class="card-body">
@@ -116,6 +119,7 @@
 
 
       </div>
+</main> 
 
       <!-- ======= Footer ======= -->
       <%@ include file="footer.jsp" %>
