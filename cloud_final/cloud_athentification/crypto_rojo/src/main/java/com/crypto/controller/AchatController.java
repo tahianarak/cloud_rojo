@@ -6,6 +6,7 @@ import com.crypto.model.cryptos.Crypto;
 import com.crypto.model.Utilisateur;
 
 import com.crypto.service.UserService;
+import com.crypto.service.crypto.MyCommissionService;
 import com.crypto.service.crypto.MyCryptoService;
 import com.crypto.service.crypto.TransactionService;
 import com.crypto.service.utilisateur.UtilisateurService;
@@ -49,6 +50,9 @@ public class AchatController {
 
     @Autowired
     TransactionService transactionService;
+
+    @Autowired
+    MyCommissionService commissionService;
 
     String url = "http://localhost:7070/api/crypto";
     String urlUser="http://localhost:8000/api/verify/token";
@@ -102,14 +106,15 @@ public class AchatController {
             AcheterCryptoRequest acheterCryptoRequest = new AcheterCryptoRequest();
 
             Utilisateur utilisateur = utilisateurService.getById(request.getSession().getAttribute("idUser").toString());
-            Crypto crypto = myCryptoService.getById(request.getParameter("crypto"));
+            Crypto crypto = myCryptoService.getById(request.getParameter("cryptos"));
             Double quantities = Double.parseDouble(request.getParameter("quantities"));
 
             acheterCryptoRequest.setUtilisateur(utilisateur);
             acheterCryptoRequest.setCrypto(crypto);
             acheterCryptoRequest.setQuantities(quantities);
-            acheterCryptoRequest.setCommission((double) 0);
-            System.out.println(this.getUrl() + "/acheter");
+            acheterCryptoRequest.setCommission(commissionService.commission(crypto));
+
+
             ResponseEntity<String> responsePost = new RestTemplate().postForEntity(this.getUrl() + "/acheter", acheterCryptoRequest, String.class);
             PrintWriter writer = response.getWriter();
             writer.println("<script type='text/javascript'>"

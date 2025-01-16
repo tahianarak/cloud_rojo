@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface MyTransactionRepository extends JpaRepository<Transaction, Integer> {
     @Query("SELECT u, " +
-            "COALESCE(SUM(CASE WHEN t.dateDebut <= :date THEN t.achat - t.achat*COALESCE(t.commission,0) ELSE 0 END), 0) as achat, " +
-            "COALESCE(SUM(CASE WHEN t.dateDebut <= :date THEN t.vente - t.achat*COALESCE(t.commission,0) ELSE 0 END), 0) as vente " +
+            "COALESCE(SUM(CASE WHEN t.dateDebut <= :date THEN t.achat - t.achat*COALESCE(t.commission/100,0) ELSE 0 END), 0) as achat, " +
+            "COALESCE(SUM(CASE WHEN t.dateDebut <= :date THEN t.vente - t.achat*COALESCE(t.commission/100,0) ELSE 0 END), 0) as vente " +
             "FROM Utilisateur u " +
             "LEFT JOIN Transaction t ON u = t.utilisateur " +
             "GROUP BY u")
