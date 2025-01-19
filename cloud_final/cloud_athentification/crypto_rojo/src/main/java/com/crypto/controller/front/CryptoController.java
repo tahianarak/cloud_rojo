@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 public class CryptoController
 {
-    private String url="http://localhost:7070/create";
+    private String url="http://springboot-app:7070/create";
 
     @Autowired
     MyCryptoService myCryptoService;
