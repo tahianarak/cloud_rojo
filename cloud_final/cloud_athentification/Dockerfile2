@@ -1,19 +1,22 @@
-# Étape de construction
-FROM maven:3.8-openjdk-17 AS build
-WORKDIR /crypto_rojo
+# Étape de construction et d'exécution
+FROM maven:3.8-openjdk-17
 
-# Copier le fichier pom.xml pour télécharger les dépendances Maven
-COPY crypto_rojo/* .
-RUN mvn dependency:go-offline -B
-RUN mvn clean package -DskipTests
+# Définir le répertoire de travail dans le conteneur
+WORKDIR /app
 
-# Étape d'exécution
-FROM openjdk:17-jdk-slim
-WORKDIR /crypto_rojo
+# Copier les fichiers Maven nécessaires pour les dépendances
+COPY crypto_rojo/pom.xml .
+COPY crypto_rojo/mvnw .
+COPY crypto_rojo/.mvn .mvn
 
-# Copier les fichiers du projet depuis l'étape de construction
-COPY --from=build /crypto_rojo .
+# Télécharger les dépendances Maven
+RUN chmod +x mvnw && ./mvnw dependency:go-offline -B
 
-# Exécuter l'application directement avec Maven
-ENTRYPOINT ["./mvnw", "spring-boot:run"]
+# Copier tout le contenu du projet dans le conteneur
+COPY crypto_rojo/ .
 
+# Exposer le port utilisé par Spring Boot (par défaut : 8080, ou 7070 si configuré)
+EXPOSE 7070
+
+# Commande pour exécuter l'application avec Maven
+CMD ["./mvnw", "spring-boot:run"]

@@ -13,6 +13,7 @@ import com.crypto.service.utilisateur.UtilisateurService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 
@@ -54,8 +55,14 @@ public class AchatController {
     @Autowired
     MyCommissionService commissionService;
 
-    String url = "http://localhost:7070/api/crypto";
-    String urlUser="http://localhost:8000/api/verify/token";
+    @Value("${link_spring}")
+    String springLink ;
+
+    @Value("${link_symfony}")
+    String symfonyLink;
+
+    String url = springLink+"/api/crypto";
+    String urlUser=symfonyLink+"/api/verify/token";
 
     @PostMapping("/filtreMoneyByDate")
     public String filtreByDate(HttpServletRequest request)

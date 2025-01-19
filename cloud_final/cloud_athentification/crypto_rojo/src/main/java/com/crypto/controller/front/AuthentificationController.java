@@ -27,7 +27,7 @@ public class AuthentificationController {
 
     @Autowired
     UserService userService;
-    private final String symfonyBaseUrl = "http://127.0.0.1:8000/api";
+    private final String symfonyBaseUrl = "http://symfony-app:8000/api";
 
 
 
