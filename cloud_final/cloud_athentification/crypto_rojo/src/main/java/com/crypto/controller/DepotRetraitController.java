@@ -1,6 +1,7 @@
 package com.crypto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType; 
@@ -28,7 +29,10 @@ import org.springframework.http.HttpHeaders;
 public class DepotRetraitController {
 
     private final DepotRetraitRepository depotRetraitRepo ;
-    String apiUrl = "http://localhost:7070/DepotApi";
+
+
+    @Value("${link_spring}")
+    String apiUrl;
 
     @Autowired
     public DepotRetraitController(DepotRetraitRepository depotRetraitRepo) {
@@ -48,7 +52,7 @@ public class DepotRetraitController {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
             HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
-            ResponseEntity<String> responseEntity = restTemplate.postForEntity(apiUrl, requestEntity, String.class);
+            ResponseEntity<String> responseEntity = restTemplate.postForEntity(apiUrl+"/DepotApi", requestEntity, String.class);
             ObjectMapper objectMapper = new ObjectMapper();
             ApiResponse apiResponse = objectMapper.readValue(responseEntity.getBody(), ApiResponse.class);
             model.addAttribute("message", apiResponse.getData());
@@ -77,7 +81,7 @@ public class DepotRetraitController {
   @PostMapping("/ValiderRetrait")
     public String handleRetraot(@RequestParam("montant") double money, RedirectAttributes redirectAttributes , HttpSession session) {
     RestTemplate restTemplate = new RestTemplate();
-    String apiUrl = "http://localhost:7070/RetraitApi";
+    String apiUrl = this.apiUrl+"/RetraitApi";
     try {
         MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
         requestBody.add("money", String.valueOf(money));
