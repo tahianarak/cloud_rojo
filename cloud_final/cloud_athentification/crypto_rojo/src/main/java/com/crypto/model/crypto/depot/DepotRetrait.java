@@ -9,11 +9,11 @@ public class DepotRetrait {
     private int idDepotRetrait;
     private double depot;
     private double retrait;
-    private java.sql.Date dateDepotRetrait;  // Utilisation de java.sql.Date
+    private java.sql.Timestamp dateDepotRetrait;  // Utilisation de java.sql.Timestamp
     private int idUtilisateur;
 
     // Constructeur
-    public DepotRetrait(int idDepotRetrait, double depot, double retrait, java.sql.Date dateDepotRetrait, int idUtilisateur) {
+    public DepotRetrait(int idDepotRetrait, double depot, double retrait, java.sql.Timestamp dateDepotRetrait, int idUtilisateur) {
         this.idDepotRetrait = idDepotRetrait;
         this.depot = depot;
         this.retrait = retrait;
@@ -22,7 +22,7 @@ public class DepotRetrait {
     }
 
     // Constructeur sans ID (pour la création)
-    public DepotRetrait(double depot, double retrait, java.sql.Date dateDepotRetrait, int idUtilisateur) {
+    public DepotRetrait(double depot, double retrait, java.sql.Timestamp dateDepotRetrait, int idUtilisateur) {
         this.depot = depot;
         this.retrait = retrait;
         this.dateDepotRetrait = dateDepotRetrait;
@@ -54,11 +54,11 @@ public class DepotRetrait {
         this.retrait = retrait;
     }
 
-    public java.sql.Date getDateDepotRetrait() {
+    public java.sql.Timestamp getDateDepotRetrait() {
         return dateDepotRetrait;
     }
 
-    public void setDateDepotRetrait(java.sql.Date dateDepotRetrait) {
+    public void setDateDepotRetrait(java.sql.Timestamp dateDepotRetrait) {
         this.dateDepotRetrait = dateDepotRetrait;
     }
 
@@ -72,7 +72,7 @@ public class DepotRetrait {
 
     // Créer un dépôt/retrait
     public static void create(Connection connection, DepotRetrait depotRetrait) throws SQLException {
-        String sql = "INSERT INTO depot_retrait(depot, retrait, date_depot_retrait, id_utilisateur) VALUES (?, ?, CURRENT_DATE, ?)";
+        String sql = "INSERT INTO depot_retrait(depot, retrait, date_depot_retrait, id_utilisateur) VALUES (?, ?, CURRENT_TIMESTAMP, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setDouble(1, depotRetrait.getDepot());
             ps.setDouble(2, depotRetrait.getRetrait());
@@ -92,7 +92,7 @@ public class DepotRetrait {
                         rs.getInt("id_depot_retrait"),
                         rs.getDouble("depot"),
                         rs.getDouble("retrait"),
-                        rs.getDate("date_depot_retrait"),  // Récupère la date avec java.sql.Date
+                        rs.getTimestamp("date_depot_retrait"),  // Récupère la date avec java.sql.Timestamp
                         rs.getInt("id_utilisateur")
                 );
             }
@@ -102,7 +102,7 @@ public class DepotRetrait {
 
     // Mettre à jour un dépôt/retrait
     public static void update(Connection connection, DepotRetrait depotRetrait) throws SQLException {
-        String sql = "UPDATE depot_retrait SET depot = ?, retrait = ?, date_depot_retrait = CURRENT_DATE, id_utilisateur = ? WHERE id_depot_retrait = ?";
+        String sql = "UPDATE depot_retrait SET depot = ?, retrait = ?, date_depot_retrait = CURRENT_TIMESTAMP, id_utilisateur = ? WHERE id_depot_retrait = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setDouble(1, depotRetrait.getDepot());
             ps.setDouble(2, depotRetrait.getRetrait());
@@ -132,7 +132,7 @@ public class DepotRetrait {
                         rs.getInt("id_depot_retrait"),
                         rs.getDouble("depot"),
                         rs.getDouble("retrait"),
-                        rs.getDate("date_depot_retrait"),  // Utilisation de getDate pour récupérer java.sql.Date
+                        rs.getTimestamp("date_depot_retrait"),  // Utilisation de getTimestamp pour récupérer java.sql.Timestamp
                         rs.getInt("id_utilisateur")
                 ));
             }

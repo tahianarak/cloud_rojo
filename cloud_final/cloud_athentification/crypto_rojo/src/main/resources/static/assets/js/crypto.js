@@ -1,7 +1,7 @@
 let cryptoData = {}; 
 let chart;           
 let chartInterval = null; 
-const pointVisibility = 10 ; 
+const pointVisibility = 7 ; 
 let secondLoad = 2000 ; 
 
 function loadCryptos() {
@@ -66,8 +66,8 @@ function loadChart(idCrypto, libelle) {
             datasets: [{
                 label: libelle,
                 data: visiblePrices, 
-                borderColor: 'blue',
-                backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                borderColor: 'green',
+                backgroundColor: 'rgba(0, 0, 0, 0.1)',
                 fill: true,
                 tension: 0.1
             }]

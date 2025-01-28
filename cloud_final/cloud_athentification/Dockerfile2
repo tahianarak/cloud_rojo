@@ -1,32 +1,22 @@
-# Étape 1: Utiliser une image de base pour Maven pour construire l'application
-FROM maven:3.8.6-openjdk-17 AS build
+# Étape de construction et d'exécution
+FROM maven:3.8-openjdk-17
 
-# Définir le répertoire de travail
+# Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copier le fichier pom.xml et télécharger les dépendances
-COPY pom.xml .
+# Copier les fichiers Maven nécessaires pour les dépendances
+COPY crypto_rojo/pom.xml .
+COPY crypto_rojo/mvnw .
+COPY crypto_rojo/.mvn .mvn
 
-# Télécharger toutes les dépendances Maven nécessaires
-RUN mvn dependency:go-offline
+# Télécharger les dépendances Maven
+RUN chmod +x mvnw && ./mvnw dependency:go-offline -B
 
-# Copier le code source dans le conteneur
-COPY src ./src
+# Copier tout le contenu du projet dans le conteneur
+COPY crypto_rojo/ .
 
-# Construire l'application (packager le JAR)
-RUN mvn clean package -DskipTests
-
-# Étape 2: Utiliser une image Java 17 pour exécuter l'application
-FROM openjdk:17-jdk-slim
-
-# Définir le répertoire de travail
-WORKDIR /app
-
-# Copier le fichier JAR généré depuis l'étape de build
-COPY --from=build /app/target/crypto_rojo-0.0.1-SNAPSHOT.jar /app/crypto_rojo.jar
-
-# Exposer le port sur lequel l'application Spring Boot va écouter
+# Exposer le port utilisé par Spring Boot (par défaut : 8080, ou 7070 si configuré)
 EXPOSE 7070
 
-# Commande pour exécuter l'application Spring Boot
-ENTRYPOINT ["java", "-jar", "cryptos.jar"]
+# Commande pour exécuter l'application avec Maven
+CMD ["./mvnw", "spring-boot:run"]

@@ -9,27 +9,30 @@ public class Transaction {
     private int idTransaction;
     private double vente;
     private double achat;
-    private java.sql.Date dateDebut;  // Utilisation de java.sql.Date
+    private java.sql.Timestamp dateDebut;  // Utilisation de java.sql.Timestamp
     private int idCrypto;
     private int idUtilisateur;
+    private double commission;  // Nouveau champ commission
 
     // Constructeur
-    public Transaction(int idTransaction, double vente, double achat, java.sql.Date dateDebut, int idCrypto, int idUtilisateur) {
+    public Transaction(int idTransaction, double vente, double achat, java.sql.Timestamp dateDebut, int idCrypto, int idUtilisateur, double commission) {
         this.idTransaction = idTransaction;
         this.vente = vente;
         this.achat = achat;
         this.dateDebut = dateDebut;
         this.idCrypto = idCrypto;
         this.idUtilisateur = idUtilisateur;
+        this.commission = commission;
     }
 
     // Constructeur sans ID (pour la création)
-    public Transaction(double vente, double achat, java.sql.Date dateDebut, int idCrypto, int idUtilisateur) {
+    public Transaction(double vente, double achat, java.sql.Timestamp dateDebut, int idCrypto, int idUtilisateur, double commission) {
         this.vente = vente;
         this.achat = achat;
         this.dateDebut = dateDebut;
         this.idCrypto = idCrypto;
         this.idUtilisateur = idUtilisateur;
+        this.commission = commission;
     }
 
     // Getters et Setters
@@ -57,11 +60,11 @@ public class Transaction {
         this.achat = achat;
     }
 
-    public java.sql.Date getDateDebut() {
+    public java.sql.Timestamp getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(java.sql.Date dateDebut) {
+    public void setDateDebut(java.sql.Timestamp dateDebut) {
         this.dateDebut = dateDebut;
     }
 
@@ -81,14 +84,23 @@ public class Transaction {
         this.idUtilisateur = idUtilisateur;
     }
 
+    public double getCommission() {
+        return commission;
+    }
+
+    public void setCommission(double commission) {
+        this.commission = commission;
+    }
+
     // Créer une transaction
     public static void create(Connection connection, Transaction transaction) throws SQLException {
-        String sql = "INSERT INTO transaction(vente, achat, date_debut, id_crypto, id_utilisateur) VALUES (?, ?, CURRENT_DATE, ?, ?)";
+        String sql = "INSERT INTO transaction(vente, achat, date_debut, id_crypto, id_utilisateur, commission) VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setDouble(1, transaction.getVente());
             ps.setDouble(2, transaction.getAchat());
             ps.setInt(3, transaction.getIdCrypto());
             ps.setInt(4, transaction.getIdUtilisateur());
+            ps.setDouble(5, transaction.getCommission());
             ps.executeUpdate();
         }
     }
@@ -104,9 +116,10 @@ public class Transaction {
                         rs.getInt("id_transaction"),
                         rs.getDouble("vente"),
                         rs.getDouble("achat"),
-                        rs.getDate("date_debut"),  // Récupère la date avec java.sql.Date
+                        rs.getTimestamp("date_debut"),  // Utilisation de getTimestamp pour récupérer java.sql.Timestamp
                         rs.getInt("id_crypto"),
-                        rs.getInt("id_utilisateur")
+                        rs.getInt("id_utilisateur"),
+                        rs.getDouble("commission")
                 );
             }
         }
@@ -115,13 +128,14 @@ public class Transaction {
 
     // Mettre à jour une transaction
     public static void update(Connection connection, Transaction transaction) throws SQLException {
-        String sql = "UPDATE transaction SET vente = ?, achat = ?, date_debut = CURRENT_DATE, id_crypto = ?, id_utilisateur = ? WHERE id_transaction = ?";
+        String sql = "UPDATE transaction SET vente = ?, achat = ?, date_debut = CURRENT_TIMESTAMP, id_crypto = ?, id_utilisateur = ?, commission = ? WHERE id_transaction = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setDouble(1, transaction.getVente());
             ps.setDouble(2, transaction.getAchat());
             ps.setInt(3, transaction.getIdCrypto());
             ps.setInt(4, transaction.getIdUtilisateur());
-            ps.setInt(5, transaction.getIdTransaction());
+            ps.setDouble(5, transaction.getCommission());
+            ps.setInt(6, transaction.getIdTransaction());
             ps.executeUpdate();
         }
     }
@@ -146,9 +160,10 @@ public class Transaction {
                         rs.getInt("id_transaction"),
                         rs.getDouble("vente"),
                         rs.getDouble("achat"),
-                        rs.getDate("date_debut"),  // Utilisation de getDate pour récupérer java.sql.Date
+                        rs.getTimestamp("date_debut"),  // Utilisation de getTimestamp pour récupérer java.sql.Timestamp
                         rs.getInt("id_crypto"),
-                        rs.getInt("id_utilisateur")
+                        rs.getInt("id_utilisateur"),
+                        rs.getDouble("commission")
                 ));
             }
         }
@@ -164,6 +179,7 @@ public class Transaction {
                 ", dateDebut=" + dateDebut +
                 ", idCrypto=" + idCrypto +
                 ", idUtilisateur=" + idUtilisateur +
+                ", commission=" + commission +
                 '}';
     }
 }

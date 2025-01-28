@@ -9,11 +9,205 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
+
+/* ======= Custom Welcome Style for CRYTOMOMAi ======= */
+
+/* Background gradient */
+.bodyCrypto {
+  background: linear-gradient(135deg, #1a1b1f, #053a29 , #1e775b );
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header styling */
+.header {
+  background-color: #142850;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header .navbar-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2af598;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.header a {
+  color: #ffffff;
+  transition: color 0.3s;
+}
+
+.header a:hover {
+  color: #2af598;
+}
+
+/* Sidebar styling */
+.sidebar {
+  background: #0f3460;
+  color: #ffffff;
+  padding: 20px;
+}
+
+.sidebar a {
+  color: #d4d4d4;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.sidebar a:hover {
+  color: #2af598;
+}
+
+.sidebar .active {
+  background: #2af598;
+  color: #142850;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+/* Welcome section */
+.welcome-container {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.welcome-container h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #2af598;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  animation: fadeInDown 1s ease-in-out;
+}
+
+.welcome-container p {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 40px;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.welcome-container .btn {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 12px 30px;
+  color: #142850;
+  background: #2af598;
+  border: none;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.welcome-container .btn:hover {
+  color: #ffffff;
+  background: #17c0eb;
+  box-shadow: 0 8px 15px rgba(23, 192, 235, 0.2);
+}
+
+/* Footer styling */
+.credits {
+  font-size: 0.9rem;
+  color: #d4d4d4;
+}
+
+.credits a {
+  color: #2af598;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.credits a:hover {
+  color: #17c0eb;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+/* ======= Custom Welcome Style for CRYTOMOMAi ======= */
+
+
+
 :root {
   scroll-behavior: smooth;
 }
 
+
 body {
+  /* Fond sombre pour l'ensemble de la page */
+}
+
+.container {
+  margin-top: 50px;
+}
+
+.card {
+  border-radius: 15px;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+h5.card-title {
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius: 10px;
+}
+
+.btn-primary {
+  background-color: #28a745; /* Vert crypto */
+  border-color: #28a745;
+}
+
+.btn-primary:hover {
+  background-color: #218838; /* Vert plus foncé au survol */
+  border-color: #218838;
+}
+
+.text-light {
+  color: #d1d1d1 !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+body {
+  background-color: #7d7a7a;
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
   color: #444444;

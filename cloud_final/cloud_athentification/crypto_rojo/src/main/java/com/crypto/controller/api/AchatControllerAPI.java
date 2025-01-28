@@ -24,7 +24,7 @@ public class AchatControllerAPI {
             @RequestBody AcheterCryptoRequest request) {
         //AcheterCryptoRequest est un model presentant le Json envoyé
         try {
-            depotRetraitService.acheteCrypto(request.getUtilisateur(), request.getCrypto(), request.getQuantities());
+            depotRetraitService.acheteCrypto(request.getUtilisateur(), request.getCrypto(), request.getQuantities(),request.getCommission());
             return ResponseEntity.ok("Cryptos achete success");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: " + e.getMessage());
