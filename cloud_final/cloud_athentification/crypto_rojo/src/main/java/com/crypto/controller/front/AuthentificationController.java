@@ -16,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/auth")
@@ -24,7 +27,7 @@ public class AuthentificationController {
 
     @Autowired
     UserService userService;
-    private final String symfonyBaseUrl = "http://127.0.0.1:8000/api";
+    private final String symfonyBaseUrl = "http://symfony-app:8000/api";
 
 
 
@@ -94,5 +97,11 @@ public class AuthentificationController {
         mv.addObject("error",response.getBody().get("error"));
         return mv;
     }
+
+    @GetMapping("/home")
+    public String getMethodName() {
+        return "home";  
+    }
+    
 
 }

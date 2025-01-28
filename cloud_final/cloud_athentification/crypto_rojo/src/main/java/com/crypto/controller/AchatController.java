@@ -5,12 +5,16 @@ import com.crypto.model.crypto.Mapper;
 import com.crypto.model.cryptos.Crypto;
 import com.crypto.model.Utilisateur;
 
+import com.crypto.service.CommissionService;
 import com.crypto.service.UserService;
+import com.crypto.service.crypto.MyCommissionService;
 import com.crypto.service.crypto.MyCryptoService;
+import com.crypto.service.crypto.TransactionService;
 import com.crypto.service.utilisateur.UtilisateurService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 
@@ -24,7 +28,13 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class AchatController {
@@ -41,17 +51,58 @@ public class AchatController {
     @Autowired
     UserService userService;
 
-    String url = "http://localhost:7070/api/crypto";
-    String urlUser="http://localhost:8000/api/verify/token";
+    @Autowired
+    TransactionService transactionService;
 
-    public String getUrl() {
-        return url;
+    @Autowired
+    MyCommissionService commissionService;
+
+    @Autowired
+    CommissionService commissionServiceDany;
+
+    @Value("${link_spring}")
+    String springLink ;
+
+    @Value("${link_symfony}")
+    String symfonyLink;
+
+    String url;
+    String urlUser;
+
+    public void setUrl(String url) {
+        this.url = url;
     }
+
+    public String getUrlUser() {
+        return this.symfonyLink+"/api/verify/token";
+    }
+    public String getUrl() {
+        return this.springLink+"/api/crypto";
+    }
+
+    public void setUrlUser(String urlUser) {
+        this.urlUser = urlUser;
+    }
+
+    @PostMapping("/filtreMoneyByDate")
+    public String filtreByDate(HttpServletRequest request)
+    {
+        LocalDateTime date = LocalDateTime.parse(request.getParameter("date"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        request.setAttribute("transaction_list",transactionService.moneyDate(date));
+        return "Valeur";
+    }
+    @GetMapping("/getFormFiltreDate")
+    public String getFormFiltreDate()
+    {
+        return "Valeur";
+    }
+
 
     //get form acheter
     @GetMapping("/crypto/getFormAcheter")
     public String getFormAcheter(HttpServletRequest request)
     {
+
         ResponseEntity<List<Crypto>> response = new RestTemplate().exchange(
                 this.getUrl()+"/liste",
                 HttpMethod.GET,
@@ -74,20 +125,22 @@ public class AchatController {
         String redirectString = "/crypto/getFormAcheter";
         try {
             String token=(String) request.getSession().getAttribute("token");
-            if (this.userService.verfiyValidityOfToken(token,this.urlUser)==false) {
+            if (this.userService.verfiyValidityOfToken(token,this.getUrlUser())==false) {
                throw new Exception("NO TOKEN VALIDE");
             }
 
             AcheterCryptoRequest acheterCryptoRequest = new AcheterCryptoRequest();
 
             Utilisateur utilisateur = utilisateurService.getById(request.getSession().getAttribute("idUser").toString());
-            Crypto crypto = myCryptoService.getById(request.getParameter("crypto"));
+            Crypto crypto = myCryptoService.getById(request.getParameter("cryptos"));
             Double quantities = Double.parseDouble(request.getParameter("quantities"));
 
             acheterCryptoRequest.setUtilisateur(utilisateur);
             acheterCryptoRequest.setCrypto(crypto);
             acheterCryptoRequest.setQuantities(quantities);
-            System.out.println(this.getUrl() + "/acheter");
+            acheterCryptoRequest.setCommission(commissionService.commission(crypto));
+
+
             ResponseEntity<String> responsePost = new RestTemplate().postForEntity(this.getUrl() + "/acheter", acheterCryptoRequest, String.class);
             PrintWriter writer = response.getWriter();
             writer.println("<script type='text/javascript'>"
@@ -104,5 +157,6 @@ public class AchatController {
                     + "</script>");
         }
     }
+
 
 }

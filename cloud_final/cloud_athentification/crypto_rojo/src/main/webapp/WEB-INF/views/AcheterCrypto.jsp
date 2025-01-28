@@ -43,41 +43,37 @@
 
 <!-- ======= Sidebar ======= -->
 <%@ include file="sidebar.jsp" %>
-<!--  Body Wrapper -->
-<div style="margin-top:30px ;">
 
-    <div class="body-wrapper">
-        <div class="container-fluid">
-            <div class="container-fluid">
-                <div class="card">
+  <main id="main" class="main">
+
+       <div class="card">
                     <div class="card-body">
                         <h5 class="card-title fw-semibold mb-4">Acheter Crypto</h5>
-                        <div class="card">
-                            <div class="card-body">
-
-                                <form action="/cryptos/acheterCrypto" method="post">
-                                    <div class="mb-3">
-                                        <label for="bloc" class="form-label">Choisir Crypto</label>
-                                        <select id="bloc" class="form-select" name="cryptos">
-                                            <% for (Crypto cryptos : cryptoList) {%>
-                                            <option value="<%= cryptos.getIdCrypto() %>"> <%= cryptos.getLibelle() %> | <%= cryptos.getPrixActuelle() %> USD </option>
-                                            <% } %>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="quantities" class="form-label">Quantities</label>
-                                        <input type="text" class="form-control" id="quantities" name="quantities" step="0.01">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
-                            </div>
-                        </div>
+                                  <div class="container mt-5 p-4 border rounded bg-light shadow" > 
+                             
+                                        <form action="/crypto/acheterCrypto" method="post">
+                                                                        <div class="mb-3">
+                                                                            <label for="bloc" class="form-label">Choisir Crypto</label>
+                                                                            <select id="bloc" class="form-select" name="cryptos">
+                                                                                <% for (Crypto cryptos : cryptoList) {%>
+                                                                                <option value="<%= cryptos.getIdCrypto() %>"> <%= cryptos.getLibelle() %> | <%= cryptos.getPrixActuelle() %> USD </option>
+                                                                                <% } %>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="quantities" class="form-label">Quantities</label>
+                                                                            <input type="number" class="form-control" id="quantities" name="quantities" step="0.01">
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+                                  </div>                       
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+  </main><!-- End #main -->
+
+
+
 
 <!-- ======= Footer ======= -->
 <%@ include file="footer.jsp" %>

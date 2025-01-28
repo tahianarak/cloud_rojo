@@ -11,7 +11,8 @@
 	<groupId>mg.working</groupId>
 	<artifactId>cryptos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gestion2</name>
+	<name>crypto</name>
+	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -72,6 +73,11 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+			<version>10.1.34</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -86,7 +92,10 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<outputDirectory>C:\Program Files\Apache Software Foundation\Tomcat 11.0\webapps</outputDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
+
 			</plugin>
 		</plugins>
 	</build>
