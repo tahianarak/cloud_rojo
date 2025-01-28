@@ -9,6 +9,7 @@ import com.crypto.service.crypto.MyCryptoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,8 @@ import java.util.List;
 @Controller
 public class CryptoController
 {
-    private String url="http://springboot-app:7070/create";
+    @Value("${link_spring}")
+    private String url;
 
     @Autowired
     MyCryptoService myCryptoService;
@@ -56,7 +58,7 @@ public class CryptoController
         map.put("idUtilisateur",String.valueOf((String)session.getAttribute("idUser")));
         map.put("token",String.valueOf((String)session.getAttribute("token")));
 
-        String reponse=Mapper.sendPostRequest(this.url,map,restTemplate);
+        String reponse=Mapper.sendPostRequest(this.url+"/create",map,restTemplate);
 
         ModelAndView mv=new ModelAndView("result");
         mv.addObject("resultat",reponse);

@@ -1,6 +1,7 @@
 package com.crypto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,8 @@ import com.crypto.service.UserService;
 public class RestDepotRetraitController {
 
 
-    private String url="http://127.0.0.1:8000/api/verify/token";
+    @Value("${link_symfony}")
+    private String url;
 
     @Autowired
     private  DepotRetraitRepository depotRetraitRepo ;
@@ -28,7 +30,7 @@ public class RestDepotRetraitController {
     public ResponseEntity<String> DepotMoney(@RequestParam("money") double money , @RequestParam("token") String token , @RequestParam("idUser") int idUser ) throws Exception {
         ResponseFormatter formatter = new ResponseFormatter(); 
         try {
-            if( this.userService.verfiyValidityOfToken(token, url) == false ){ 
+            if( this.userService.verfiyValidityOfToken(token, url+"/api/verify/token") == false ){
                  throw new Exception("Token invalid");
             }
             DepotRetrait depotRetrait = new DepotRetrait();
@@ -52,7 +54,7 @@ public class RestDepotRetraitController {
     public ResponseEntity<String> RetraitMoney(@RequestParam("money") double money ,  @RequestParam("token") String token , @RequestParam("idUser") int idUser ) {
         ResponseFormatter formatter = new ResponseFormatter(); 
         try {
-            if( this.userService.verfiyValidityOfToken(token, url) == false ){ 
+            if( this.userService.verfiyValidityOfToken(token, url+"/api/verify/token") == false ){
                 throw new Exception("Token invalid");
            }
             DepotRetrait depotRetrait = new DepotRetrait();
