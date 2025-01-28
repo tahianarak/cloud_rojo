@@ -5,6 +5,7 @@ import com.crypto.model.crypto.Mapper;
 import com.crypto.model.cryptos.Crypto;
 import com.crypto.model.Utilisateur;
 
+import com.crypto.service.CommissionService;
 import com.crypto.service.UserService;
 import com.crypto.service.crypto.MyCommissionService;
 import com.crypto.service.crypto.MyCryptoService;
@@ -27,6 +28,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -54,6 +56,9 @@ public class AchatController {
 
     @Autowired
     MyCommissionService commissionService;
+
+    @Autowired
+    CommissionService commissionServiceDany;
 
     @Value("${link_spring}")
     String springLink ;
@@ -119,7 +124,7 @@ public class AchatController {
             acheterCryptoRequest.setUtilisateur(utilisateur);
             acheterCryptoRequest.setCrypto(crypto);
             acheterCryptoRequest.setQuantities(quantities);
-            acheterCryptoRequest.setCommission(commissionService.commission(crypto));
+            acheterCryptoRequest.setCommission(commissionServiceDany.getCommissionByIdAndDateBefore(crypto.getIdCrypto().intValue(),new Timestamp((new Date()).getTime())).getValeurCommission());
 
 
             ResponseEntity<String> responsePost = new RestTemplate().postForEntity(this.getUrl() + "/acheter", acheterCryptoRequest, String.class);

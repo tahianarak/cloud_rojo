@@ -18,4 +18,9 @@ public class MyCommissionService {
         List<Commission> commissions = commissionRepository.getByCrypto(crypto);
         return commissions.get(0).getPourcentage();
     }
+
+    public void save(Commission commission)
+    {
+        commissionRepository.save(commission);
+    }
 }
