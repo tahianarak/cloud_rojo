@@ -3,6 +3,7 @@ package com.crypto.controller.front;
 import com.crypto.service.UserService;
 import com.crypto.model.crypto.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -27,13 +28,19 @@ public class InscriptionController {
 
     @Autowired
     UserService userService;
-    String symfonyBaseUrl = "http://127.0.0.1:8000/api";
+
+    @Value("${link_spring}")
+    String springLink ;
+
+    @Value("${link_symfony}")
+    String symfonyLink;
+    String symfonyBaseUrl = "/api";
 
     String app="http://127.0.0.1:7070/inscription/valider";
 
     @PostMapping("/inscrire")
     public ModelAndView validerFormInscription(@RequestParam("email") String email,@RequestParam("nom") String nom,@RequestParam("date_naissance") String date_naissance,@RequestParam("mdp") String mdp, HttpSession session) throws  Exception{
-        String url = symfonyBaseUrl + "/valideInscription";
+        String url = symfonyLink+symfonyBaseUrl + "/valideInscription";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -46,24 +53,24 @@ public class InscriptionController {
 
         RestTemplate restTemplate=new RestTemplate();
 
-        ResponseEntity<Map<String , String>> response = restTemplate.exchange(
+        ResponseEntity<Map<String , Object>> response = restTemplate.exchange(
                 url,
                 HttpMethod.POST,
                 new HttpEntity<>(userData),
-                new ParameterizedTypeReference<Map<String, String>>() {},
+                new ParameterizedTypeReference<Map<String, Object>>() {},
                 Map.class
         );
 
         if (response.getBody().get("status").equals("success"))
         {
-            return new ModelAndView("mailTemplate");
+            return new ModelAndView("signup");
         }
         throw  new Exception("oups quelque chose s'est mal passée");
     }
 
     @GetMapping("/valider")
     public ModelAndView validerInscription(@RequestParam("pin") String pin, HttpSession session) {
-        String url = UriComponentsBuilder.fromHttpUrl(symfonyBaseUrl + "/inscriptionEmail")
+        String url = UriComponentsBuilder.fromHttpUrl(symfonyLink+symfonyBaseUrl + "/inscriptionEmail")
                 .queryParam("pin", pin)
                 .toUriString();
 

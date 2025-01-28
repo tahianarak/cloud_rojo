@@ -30,7 +30,6 @@ public class DepotRetraitController {
 
     private final DepotRetraitRepository depotRetraitRepo ;
 
-
     @Value("${link_spring}")
     String apiUrl;
 

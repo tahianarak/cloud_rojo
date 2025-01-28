@@ -5,6 +5,7 @@ import com.crypto.model.crypto.Mapper;
 import com.crypto.model.cryptos.Crypto;
 import com.crypto.model.Utilisateur;
 
+import com.crypto.service.CommissionService;
 import com.crypto.service.UserService;
 import com.crypto.service.crypto.MyCommissionService;
 import com.crypto.service.crypto.MyCryptoService;
@@ -27,6 +28,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -55,14 +57,32 @@ public class AchatController {
     @Autowired
     MyCommissionService commissionService;
 
+    @Autowired
+    CommissionService commissionServiceDany;
+
     @Value("${link_spring}")
     String springLink ;
 
     @Value("${link_symfony}")
     String symfonyLink;
 
-    String url = springLink+"/api/crypto";
-    String urlUser=symfonyLink+"/api/verify/token";
+    String url;
+    String urlUser;
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrlUser() {
+        return this.symfonyLink+"/api/verify/token";
+    }
+    public String getUrl() {
+        return this.springLink+"/api/crypto";
+    }
+
+    public void setUrlUser(String urlUser) {
+        this.urlUser = urlUser;
+    }
 
     @PostMapping("/filtreMoneyByDate")
     public String filtreByDate(HttpServletRequest request)
@@ -76,14 +96,13 @@ public class AchatController {
     {
         return "Valeur";
     }
-    public String getUrl() {
-        return url;
-    }
+
 
     //get form acheter
     @GetMapping("/crypto/getFormAcheter")
     public String getFormAcheter(HttpServletRequest request)
     {
+
         ResponseEntity<List<Crypto>> response = new RestTemplate().exchange(
                 this.getUrl()+"/liste",
                 HttpMethod.GET,
@@ -106,7 +125,7 @@ public class AchatController {
         String redirectString = "/crypto/getFormAcheter";
         try {
             String token=(String) request.getSession().getAttribute("token");
-            if (this.userService.verfiyValidityOfToken(token,this.urlUser)==false) {
+            if (this.userService.verfiyValidityOfToken(token,this.getUrlUser())==false) {
                throw new Exception("NO TOKEN VALIDE");
             }
 

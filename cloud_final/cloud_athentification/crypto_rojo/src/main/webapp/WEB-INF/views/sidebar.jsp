@@ -51,6 +51,12 @@
               </a>
             </li>
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/commission/getForm">
+          <i class="bi bi-grid"></i>
+          <span>Update commission</span>
+        </a>
+      </li>
 
 
 
