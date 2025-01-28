@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2718971-4334-4431-aad7-d270c89d7137" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../crypto_rojo/src/main/java/com/crypto/controller/AchatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../crypto_rojo/src/main/java/com/crypto/controller/AchatController.java" afterDir="false" />
-    </list>
+    <list default="true" id="a2718971-4334-4431-aad7-d270c89d7137" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -108,7 +106,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "crud__commission",
+    "git-widget-placeholder": "dev1",
     "last_opened_file_path": "/Users/randriamalalavalisoa/Documents/GitHub/cloud_rojo/cloud_final/cloud_athentification/cloudProject",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
