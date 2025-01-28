@@ -83,6 +83,16 @@ CREATE TABLE depot_retrait(
    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
 
+CREATE TABLE depot_retrait_temporaire(
+   id_depot_retrait serial,
+   depot NUMERIC(15,2)  ,
+   retrait NUMERIC(15,2)  ,
+   date_depot_retrait TIMESTAMP,
+   id_utilisateur INTEGER NOT NULL,
+   PRIMARY KEY(id_depot_retrait),
+   FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
+);
+
 CREATE TABLE transaction(
    id_transaction serial,
    vente NUMERIC(15,2)  ,
