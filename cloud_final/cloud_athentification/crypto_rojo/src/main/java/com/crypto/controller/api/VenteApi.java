@@ -7,6 +7,7 @@ import com.crypto.service.UserService;
 import com.crypto.service.VenteService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +30,13 @@ public class VenteApi
     @Autowired
     UserService userService;
 
-    String url="http://localhost:8000/api/verify/token";
+    @Value("${link_symfony}")
+    String url;
     @PostMapping("/create")
     @ResponseBody
     public HashMap<String,Object> createTransaction(@RequestBody Map<String, Object> request,HttpServletRequest requestServ) throws SQLException {
         String token=(String) request.get("token");
-        if (this.userService.verfiyValidityOfToken(token,this.url)) {
+        if (this.userService.verfiyValidityOfToken(token,this.url+"/api/verify/token")) {
             return Mapper.resolve(null,"vous n'avez pas de session en cours");
         }
         int idCrypto = Integer.valueOf((String) request.get("idCrypto"));
