@@ -48,6 +48,11 @@ class AuthentificationService
         //dump($dateNow);
         $tempsRestant = new \DateTime($result['temps_restant']);
         $diffInSeconds = $dateNow->getTimestamp() - $tempsRestant->getTimestamp();
+       
+        // debug_log($diffInSeconds );
+        // debug_log($this->tokenExpiration);
+        
+
 
         if ($diffInSeconds > $this->tokenExpiration) {
             $this->deleteExpiredToken($result['id_session']);
@@ -275,16 +280,25 @@ class AuthentificationService
     {
         // Utilisation de QueryBuilder pour l'UPDATE
         $queryBuilder = $this->connection->createQueryBuilder();
+        
 
         $queryBuilder
             ->update('utilisateur') // Nom de la table
             ->set('tentative_restant', ':tentativeToTake') // Mise à jour de tentative_restant
             ->where('email = :email') // Condition
             ->setParameter('tentativeToTake', $tentativeToTake) // Paramètre
-            ->setParameter('email', $email); // Paramètre
-        
-        
-            
+            ->setParameter('email', $email); // Paramètre 
+        echo "Tonga tsara";
+
+            $compiledSql = $queryBuilder->getSQL();
+            $compiledSql = str_replace(
+                [':tentativeToTake', ':email'],
+                [$tentativeToTake, $email],
+                $compiledSql
+            );
+         //   error_log( $compiledSql);
+
+
         // Exécution de la requête
         $queryBuilder->execute();
     }

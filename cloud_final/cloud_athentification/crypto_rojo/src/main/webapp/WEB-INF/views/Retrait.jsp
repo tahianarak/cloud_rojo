@@ -55,35 +55,36 @@
                     <div class="card-body">
                         <h5 class="card-title fw-semibold mb-4">Faire un Retrait</h5>
                                 <div class="content"> 
-                                <form action="/ValiderRetrait" method="post">
-                                                    <%
-                                                        String message = (String) request.getAttribute("message");
-                                                        double montant = (double) request.getAttribute("montant");
-                                                        if (message != null) {
-                                                        %>
-                                                         <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                                                    <h2> <%= message %> </h2>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                        </div>
-                                                        <%
-                                                                    }
-                                                        %>
-                                                                
-                                        <div class="mb-3">
-                                        <h2>Votre solde : <%= montant %> </h2>
-                                        </div>
-                                        
-                                         <div class="mb-3">
-                                        <div class="form-group">
-                                            <label for="montant">Montant :</label>
-                                            <input class="form-control" type="number" id="montant" name="montant" required>
-                                        </div>
-                                        </div> 
-                                        
-                                        <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Valider</button>
-                                        </div>
-                                </form>     
+                              <form action="/ValiderRetraitTemp" method="post">
+                                <%
+                                    String message = (String) request.getAttribute("message");
+                                    double montant = (double) request.getAttribute("montant");
+                                    if (message != null && !message.isEmpty()) {
+                                %>
+                                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                        <h2> <%= message %> </h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                <%
+                                    }
+                                %>
+
+                                <div class="mb-3">
+                                    <h2>Votre solde : <%= montant %> </h2>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="form-group">
+                                        <label for="montant">Montant :</label>
+                                        <input class="form-control" type="number" id="montant" name="montant" required>
+                                    </div>
+                                </div> 
+
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Valider</button>
+                                </div>
+                            </form>
+                              
                                 </div>                
                     </div>
                 </div>
