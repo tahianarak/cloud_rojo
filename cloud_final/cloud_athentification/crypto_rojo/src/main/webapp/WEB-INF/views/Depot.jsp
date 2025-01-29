@@ -58,7 +58,7 @@
                     <div class="card-body">
                         <h5 class="card-title fw-semibold mb-4">Faire un Depot</h5>
                                 <div class="content"> 
-                                <form action="/ValiderDepot" method="post">
+                                <form action="/ValiderDepotTemp" method="post">
                                 <%
 
                                     String message = (String) request.getAttribute("message");
