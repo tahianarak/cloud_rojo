@@ -13,4 +13,8 @@ public class UtilisateurService {
     {
         return utilisateurRepository.getById(Integer.valueOf(id));
     }
+    public void save (Utilisateur utilisateur)
+    {
+        utilisateurRepository.save(utilisateur);
+    }
 }

@@ -38,12 +38,7 @@ public class AuthentificationController {
     @Autowired
     UtilisateurService utilisateurService;
 
-    @GetMapping("/")
-    public String first(HttpServletRequest request)
-    {
-        request.getSession().invalidate();
-        return "redirect:/auth/loginPage";
-    }
+
 
     @GetMapping("/deconnect")
     public String deconect(HttpServletRequest request)
