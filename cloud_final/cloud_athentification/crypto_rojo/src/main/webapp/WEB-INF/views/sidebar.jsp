@@ -77,6 +77,12 @@
       </li>
         <%}%>
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/auth/deconnect">
+                <i class="bi bi-grid"></i>
+                <span>Deconnect</span>
+            </a>
+        </li>
 
 
 
