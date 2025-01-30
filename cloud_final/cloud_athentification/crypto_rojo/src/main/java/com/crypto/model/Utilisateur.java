@@ -31,7 +31,7 @@ public class Utilisateur {
     @Column(name = "tentative_restant", nullable = false)
     private Integer tentativeRestant;
 
-    @Column(name = "isAdmin", nullable = false)
+    @Column(name = "isAdmin")
     private int isAdmin;
 
     // Getters et setters
