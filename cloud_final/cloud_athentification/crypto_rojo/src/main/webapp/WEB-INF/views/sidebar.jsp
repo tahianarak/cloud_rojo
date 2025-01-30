@@ -47,7 +47,7 @@
         </a>
       </li>
 
-        <%if (utilisateur.getIsAdmin()==1){%>
+        <%if (utilisateur.getIs_admin()==1){%>
       <li class="nav-item">
               <a class="nav-link collapsed" href="/commission/filtres">
                 <i class="bi bi-grid"></i>
