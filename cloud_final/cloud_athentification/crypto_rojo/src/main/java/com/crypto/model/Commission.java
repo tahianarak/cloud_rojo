@@ -56,9 +56,9 @@ public class Commission {
             function = "AVG(";
         }
 
-        String sql = "SELECT " + function + "commission) AS total_commission FROM transaction ";
+        String sql = "SELECT " + function + "commission) AS total_commission FROM transaction WHERE 1=1";
         if (idCrypto != -1) {
-            sql = sql + " WHERE id_crypto = " + idCrypto;
+            sql = sql + " AND id_crypto = " + idCrypto;
         }
         sql = sql + " AND date_debut BETWEEN ? AND ? GROUP BY id_crypto ";
         System.out.println(sql);
