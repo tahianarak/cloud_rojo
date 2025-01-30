@@ -6,7 +6,7 @@ CREATE TABLE utilisateur(
    email VARCHAR(512)  NOT NULL,
    mdp VARCHAR(255)  NOT NULL,
    tentative_restant INTEGER NOT NULL,
-   isAdmin INT NOT NULL default 0,
+   is_admin INT NOT NULL default 0,
    PRIMARY KEY(id_utilisateur)
 );
 
@@ -49,7 +49,7 @@ CREATE TABLE validation_unlock(
    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
 
-INSERT INTO utilisateur ( nom, date_ens, date_naissance, email, mdp, tentative_restant,isAdmin)
+INSERT INTO utilisateur ( nom, date_ens, date_naissance, email, mdp, tentative_restant,is_admin)
 VALUES
 ( 'Randria Valisoa', '2023-01-15', '1985-07-23', 'RandriaVals2303@gmail.com', MD5('vals'), 3,1),
 ( 'Andria Mirindra', '2023-01-15', '1985-07-23', 'mixandria19@gmail.com', MD5('mix'), 3,0);
@@ -117,7 +117,7 @@ CREATE TABLE commission
     description VARCHAR(100)
 );
 --DATA
-INSERT INTO utilisateur (nom, date_ens, date_naissance, email, mdp, tentative_restant,isAdmin)
+INSERT INTO utilisateur (nom, date_ens, date_naissance, email, mdp, tentative_restant,is_admin)
 VALUES
 ('Ravelo Herisoa', '2024-01-01', '1985-01-01', 'randria@mailinator.com', MD5('1111'), 3,0),
 ('Ramanantsoa Tiana', '2024-01-02', '1986-02-02', 'rakoto@mailinator.com', MD5('2222'), 3,0),

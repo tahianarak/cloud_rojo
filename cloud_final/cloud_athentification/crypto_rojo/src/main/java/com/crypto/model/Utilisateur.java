@@ -31,17 +31,18 @@ public class Utilisateur {
     @Column(name = "tentative_restant", nullable = false)
     private Integer tentativeRestant;
 
-    @Column(name = "isAdmin")
-    private int isAdmin;
+    @Column(name = "is_admin")
+    private int is_admin;
 
     // Getters et setters
 
-    public int getIsAdmin() {
-        return isAdmin;
+
+    public int getIs_admin() {
+        return is_admin;
     }
 
-    public void setIsAdmin(int isAdmin) {
-        this.isAdmin = isAdmin;
+    public void setIs_admin(int is_admin) {
+        this.is_admin = is_admin;
     }
 
     public Long getIdUtilisateur() {
