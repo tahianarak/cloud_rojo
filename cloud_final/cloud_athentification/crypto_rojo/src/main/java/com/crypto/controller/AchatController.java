@@ -157,6 +157,11 @@ public class AchatController {
                     + "</script>");
         }
     }
+    @GetMapping("/")
+    public String first(HttpServletRequest request)
+    {
+        return "redirect:/auth/loginPage";
+    }
 
 
 }
