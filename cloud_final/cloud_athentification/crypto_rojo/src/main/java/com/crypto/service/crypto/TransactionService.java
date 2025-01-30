@@ -46,4 +46,8 @@ public class TransactionService {
         }
         return toReturn;
     }
+
+    public List<Transaction> getTransactionsWithFilters(LocalDateTime dateDebut, LocalDateTime dateFin, Integer crypto, Integer utilisateur) {
+        return myTransactionRepository.findTransactionsWithFilters(dateDebut, dateFin, crypto, utilisateur);
+    }
 }

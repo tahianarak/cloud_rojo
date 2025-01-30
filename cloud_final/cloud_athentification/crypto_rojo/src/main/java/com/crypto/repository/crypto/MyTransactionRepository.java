@@ -26,6 +26,18 @@ public interface MyTransactionRepository extends JpaRepository<Transaction, Inte
             "LEFT JOIN DepotRetrait d ON u = d.utilisateur " +
             "GROUP BY u")
     List<Object[]> moneyPortefeuilleDate(@Param("date") LocalDateTime date);
+    @Query("SELECT t FROM Transaction t " +
+            "JOIN t.utilisateur u " +
+            "JOIN t.crypto c " +
+            "WHERE (:dateDebut IS NULL OR t.dateDebut >= :dateDebut) " +
+            "AND (:dateFin IS NULL OR t.dateDebut <= :dateFin) " +
+            "AND (:crypto IS NULL OR c.idCrypto = :crypto) " +
+            "AND (:utilisateur IS NULL OR u.idUtilisateur = :utilisateur)")
+    List<Transaction> findTransactionsWithFilters(
+            @Param("dateDebut") LocalDateTime dateDebut,
+            @Param("dateFin") LocalDateTime dateFin,
+            @Param("crypto") Integer crypto,
+            @Param("utilisateur") Integer utilisateur);
 
 
 }

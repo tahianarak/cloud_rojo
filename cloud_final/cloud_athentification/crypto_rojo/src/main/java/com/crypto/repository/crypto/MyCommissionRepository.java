@@ -12,11 +12,6 @@ import java.util.List;
 
 @Repository
 public interface MyCommissionRepository extends JpaRepository<Commission,Integer> {
-    @Query("""
-        SELECT c 
-        FROM Commission c 
-        WHERE c.crypto = :crypto AND c.dateEns <= :dateMax
-        ORDER BY c.dateEns DESC
-    """)
+    @Query(" SELECT c FROM Commission c WHERE c.crypto = :crypto AND c.dateEns <= :dateMax ORDER BY c.dateEns DESC ")
     List<Commission> getByCrypto(@Param("crypto") Crypto crypto, @Param("dateMax") Timestamp dateMax);
 }
