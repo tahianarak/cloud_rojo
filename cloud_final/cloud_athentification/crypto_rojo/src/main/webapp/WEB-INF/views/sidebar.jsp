@@ -1,7 +1,11 @@
- <aside id="sidebar" class="sidebar">
-
+<%@ page import="com.crypto.service.utilisateur.UtilisateurService" %>
+<%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
+<%@ page import="com.crypto.model.Utilisateur" %>
+<%
+    Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
+%>
+<aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
-
       <li class="nav-item">
         <a class="nav-link collapsed" href="/ListCrypto">
           <i class="bi bi-grid"></i>
@@ -39,11 +43,11 @@
        <li class="nav-item">
         <a class="nav-link collapsed" href="/getFormFiltreDate">
           <i class="bi bi-grid"></i>
-          <span>Valeur</span>
+          <span>Situation des utilisateurs</span>
         </a>
       </li>
 
-
+        <%if (utilisateur.getIsAdmin()==1){%>
       <li class="nav-item">
               <a class="nav-link collapsed" href="/commission/filtres">
                 <i class="bi bi-grid"></i>
@@ -71,7 +75,7 @@
           <span>List Retrait</span>
         </a>
       </li>
-
+        <%}%>
 
 
 
