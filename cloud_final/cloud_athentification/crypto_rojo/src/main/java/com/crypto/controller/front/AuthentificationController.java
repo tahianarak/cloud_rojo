@@ -3,6 +3,7 @@ package com.crypto.controller.front;
 import com.crypto.model.crypto.User;
 import com.crypto.service.UserService;
 import com.crypto.service.utilisateur.UtilisateurService;
+import jakarta.servlet.http.HttpServletRequest;
 import jdk.jshell.execution.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +38,19 @@ public class AuthentificationController {
     @Autowired
     UtilisateurService utilisateurService;
 
+    @GetMapping("/")
+    public String first(HttpServletRequest request)
+    {
+        request.getSession().invalidate();
+        return "redirect:/auth/loginPage";
+    }
 
+    @GetMapping("/deconnect")
+    public String deconect(HttpServletRequest request)
+    {
+        request.getSession().invalidate();
+        return "redirect:/auth/loginPage";
+    }
 
     @GetMapping("/loginPage")
     public ModelAndView loginPage()
