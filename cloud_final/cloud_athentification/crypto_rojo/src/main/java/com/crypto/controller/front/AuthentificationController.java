@@ -1,5 +1,6 @@
 package com.crypto.controller.front;
 
+import com.crypto.model.Utilisateur;
 import com.crypto.model.crypto.User;
 import com.crypto.service.UserService;
 import com.crypto.service.utilisateur.UtilisateurService;
@@ -43,6 +44,9 @@ public class AuthentificationController {
     @GetMapping("/deconnect")
     public String deconect(HttpServletRequest request)
     {
+        Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
+        utilisateur.setTentativeRestant(3);
+        utilisateurService.save(utilisateur);
         request.getSession().invalidate();
         return "redirect:/auth/loginPage";
     }
