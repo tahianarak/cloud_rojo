@@ -1,7 +1,11 @@
 package com.crypto.controller.front;
 
+import com.crypto.model.Utilisateur;
 import com.crypto.model.crypto.User;
 import com.crypto.service.UserService;
+import com.crypto.service.utilisateur.UtilisateurService;
+import jakarta.servlet.http.HttpServletRequest;
+import jdk.jshell.execution.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.Banner;
@@ -32,7 +36,20 @@ public class AuthentificationController {
 
     String  symfonyBaseUrl =  "/api";
 
+    @Autowired
+    UtilisateurService utilisateurService;
 
+
+
+    @GetMapping("/deconnect")
+    public String deconect(HttpServletRequest request)
+    {
+        Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
+        utilisateur.setTentativeRestant(3);
+        utilisateurService.save(utilisateur);
+        request.getSession().invalidate();
+        return "redirect:/auth/loginPage";
+    }
 
     @GetMapping("/loginPage")
     public ModelAndView loginPage()
@@ -95,6 +112,7 @@ public class AuthentificationController {
             System.out.println(response.getBody());
             session.setAttribute("token",response.getBody().get("token"));
             session.setAttribute("idUser",response.getBody().get("id_user"));
+            session.setAttribute("user",utilisateurService.getById(response.getBody().get("id_user")));
             return  new ModelAndView("home");
         }
 

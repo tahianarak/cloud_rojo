@@ -2,6 +2,7 @@ package com.crypto.controller.front;
 
 import com.crypto.service.UserService;
 import com.crypto.model.crypto.User;
+import com.crypto.service.utilisateur.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -37,6 +38,9 @@ public class InscriptionController {
     String symfonyBaseUrl = "/api";
 
     String app="http://127.0.0.1:7070/inscription/valider";
+
+    @Autowired
+    UtilisateurService utilisateurService;
 
     @PostMapping("/inscrire")
     public ModelAndView validerFormInscription(@RequestParam("email") String email,@RequestParam("nom") String nom,@RequestParam("date_naissance") String date_naissance,@RequestParam("mdp") String mdp, HttpSession session) throws  Exception{
@@ -89,6 +93,7 @@ public class InscriptionController {
         {
             session.setAttribute("token",(String)response.getBody().get("token"));
             session.setAttribute("idUser" , response.getBody().get("id_user").toString());
+            session.setAttribute("user",utilisateurService.getById(response.getBody().get("id_user").toString()));
             return  new ModelAndView("home");
         }
         ModelAndView mv= new ModelAndView("error");
