@@ -6,6 +6,7 @@ CREATE TABLE utilisateur(
    email VARCHAR(512)  NOT NULL,
    mdp VARCHAR(255)  NOT NULL,
    tentative_restant INTEGER NOT NULL,
+   isAdmin INT NOT NULL default 0,
    PRIMARY KEY(id_utilisateur)
 );
 
