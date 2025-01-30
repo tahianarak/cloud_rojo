@@ -160,10 +160,6 @@ public class AchatController {
     @GetMapping("/")
     public String first(HttpServletRequest request)
     {
-        Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
-        utilisateur.setTentativeRestant(3);
-        utilisateurService.save(utilisateur);
-        request.getSession().invalidate();
         return "redirect:/auth/loginPage";
     }
 
