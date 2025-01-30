@@ -31,7 +31,20 @@ public class Utilisateur {
     @Column(name = "tentative_restant", nullable = false)
     private Integer tentativeRestant;
 
+    @Column(name = "is_admin")
+    private int is_admin;
+
     // Getters et setters
+
+
+    public int getIs_admin() {
+        return is_admin;
+    }
+
+    public void setIs_admin(int is_admin) {
+        this.is_admin = is_admin;
+    }
+
     public Long getIdUtilisateur() {
         return idUtilisateur;
     }
