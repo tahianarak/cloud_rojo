@@ -28,6 +28,9 @@ public class Utilisateur {
     @Column(name = "mdp", nullable = false, length = 255)
     private String mdp;
 
+    @Column(name = "photo_profil", nullable = false, length = 255)
+    private String photoProfil;
+
     @Column(name = "tentative_restant", nullable = false)
     private Integer tentativeRestant;
 
@@ -86,5 +89,13 @@ public class Utilisateur {
 
     public void setTentativeRestant(Integer tentativeRestant) {
         this.tentativeRestant = tentativeRestant;
+    }
+
+    public String getPhotoProfil() {
+        return photoProfil;
+    }
+
+    public void setPhotoProfil(String photoProfil) {
+        this.photoProfil = photoProfil;
     }
 }
