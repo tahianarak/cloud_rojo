@@ -3,6 +3,12 @@ package com.crypto.service.crypto;
 import com.crypto.model.Utilisateur;
 import com.crypto.model.cryptos.Transaction;
 import com.crypto.repository.crypto.MyTransactionRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +23,8 @@ import java.util.List;
 public class TransactionService {
     @Autowired
     MyTransactionRepository myTransactionRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public HashMap<Utilisateur,BigDecimal> moneyPortefeuilleDate(LocalDateTime date)
     {
@@ -45,5 +53,29 @@ public class TransactionService {
             toReturn.add(t);
         }
         return toReturn;
+    }
+
+    public List<Transaction> getTransactionsWithFilters(LocalDateTime dateDebut, LocalDateTime dateFin, Integer crypto, Integer utilisateur) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Transaction> query = cb.createQuery(Transaction.class);
+        Root<Transaction> transaction = query.from(Transaction.class);
+
+        Predicate predicate = cb.conjunction(); // Crée un "WHERE 1=1" pour ajouter dynamiquement des filtres
+
+        if (dateDebut != null) {
+            predicate = cb.and(predicate, cb.greaterThanOrEqualTo(transaction.get("dateDebut"), dateDebut));
+        }
+        if (dateFin != null) {
+            predicate = cb.and(predicate, cb.lessThanOrEqualTo(transaction.get("dateDebut"), dateFin));
+        }
+        if (crypto != null) {
+            predicate = cb.and(predicate, cb.equal(transaction.get("crypto").get("idCrypto"), crypto));
+        }
+        if (utilisateur != null) {
+            predicate = cb.and(predicate, cb.equal(transaction.get("utilisateur").get("idUtilisateur"), utilisateur));
+        }
+
+        query.select(transaction).where(predicate);
+        return entityManager.createQuery(query).getResultList();
     }
 }
