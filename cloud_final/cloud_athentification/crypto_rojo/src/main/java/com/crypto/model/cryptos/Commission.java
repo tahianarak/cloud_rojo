@@ -26,20 +26,11 @@ public class Commission {
     @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name = "isAdmin")
-    private int isAdmin;
 
 
     // Constructeurs
     public Commission() {}
 
-    public int getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(int isAdmin) {
-        this.isAdmin = isAdmin;
-    }
 
     public Commission(Timestamp dateEns, double pourcentage, Crypto crypto, String description) {
         this.dateEns = dateEns;
