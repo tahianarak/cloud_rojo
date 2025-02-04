@@ -1,6 +1,5 @@
 package com.crypto.model;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -9,7 +8,7 @@ public class DepotRetrait {
     private int idDepotRetrait;
     private double depot;
     private double retrait;
-    private LocalDateTime dateDepotRetrait;
+    private Timestamp dateDepotRetrait;
     private int idUtilisateur;
     private DepotRetraitRepository depotRetraitRepository; 
 
@@ -20,7 +19,7 @@ public class DepotRetrait {
     public DepotRetrait(double depot, double retrait, int idUtilisateur) {
         this.depot = depot;
         this.retrait = retrait;
-       // this.dateDepotRetrait = new Timestamp(System.currentTimeMillis()); // Date actuelle
+        this.dateDepotRetrait = new Timestamp(System.currentTimeMillis()); // Date actuelle
         this.idUtilisateur = idUtilisateur;
     }
     public DepotRetraitRepository getDepotRetraitRepository() {
@@ -62,12 +61,14 @@ public class DepotRetrait {
             throw new Exception("Le montant du retrait est supérieur au solde du compte"); 
         } 
         else { this.retrait = retrait; } 
+        
     }
-    public LocalDateTime getDateDepotRetrait() {
+
+    public Timestamp getDateDepotRetrait() {
         return dateDepotRetrait;
     }
 
-    public void setDateDepotRetrait(LocalDateTime dateDepotRetrait) {
+    public void setDateDepotRetrait(Timestamp dateDepotRetrait) {
         this.dateDepotRetrait = dateDepotRetrait;
     }
 
