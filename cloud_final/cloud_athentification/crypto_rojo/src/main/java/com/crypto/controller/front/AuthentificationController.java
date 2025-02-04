@@ -33,10 +33,6 @@ public class AuthentificationController {
     UserService userService;
     private final String symfonyBaseUrl = "http://symfony-app:8000/api";
 
-    @Autowired
-    UtilisateurService utilisateurService;
-
-
 
     @GetMapping("/deconnect")
     public String deconect(HttpServletRequest request)
