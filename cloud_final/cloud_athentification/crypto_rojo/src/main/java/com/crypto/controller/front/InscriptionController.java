@@ -1,7 +1,9 @@
 package com.crypto.controller.front;
 
+import com.crypto.model.Utilisateur;
 import com.crypto.service.UserService;
 import com.crypto.model.crypto.User;
+import com.crypto.service.firebaseSync.FirebaseSyncService;
 import com.crypto.service.utilisateur.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,6 +43,8 @@ public class InscriptionController {
 
     @Autowired
     UtilisateurService utilisateurService;
+
+
 
     @PostMapping("/inscrire")
     public ModelAndView validerFormInscription(@RequestParam("email") String email,@RequestParam("nom") String nom,@RequestParam("date_naissance") String date_naissance,@RequestParam("mdp") String mdp, HttpSession session) throws  Exception{
@@ -91,10 +95,12 @@ public class InscriptionController {
    
         if (((String)response.getBody().get("status")).equals("success"))
         {
+            Utilisateur utilisateur = utilisateurService.getById(response.getBody().get("id_user").toString());
             session.setAttribute("token",(String)response.getBody().get("token"));
             session.setAttribute("idUser" , response.getBody().get("id_user").toString());
-            session.setAttribute("user",utilisateurService.getById(response.getBody().get("id_user").toString()));
-            return  new ModelAndView("home");
+            session.setAttribute("user",utilisateur);
+            utilisateurService.syncFirebaseUser(utilisateur);
+            return new ModelAndView("home");
         }
         ModelAndView mv= new ModelAndView("error");
         mv.addObject("error",response.getBody().get("error"));
