@@ -3,6 +3,7 @@ package com.crypto.service.firebaseSync;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.FirebaseDatabase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,6 +12,7 @@ import java.io.IOException;
 
 @Configuration
 public class FirebaseConfig {
+
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
         FileInputStream serviceAccount =
@@ -22,6 +24,11 @@ public class FirebaseConfig {
                 .build();
 
         return FirebaseApp.initializeApp(options);
+    }
+
+    @Bean
+    public FirebaseDatabase firebaseDatabase(FirebaseApp firebaseApp) {
+        return FirebaseDatabase.getInstance(firebaseApp);
     }
 }
 

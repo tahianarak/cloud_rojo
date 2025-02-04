@@ -1,8 +1,10 @@
 package com.crypto.service.firebaseSync;
 
 import com.crypto.model.Utilisateur;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -12,8 +14,9 @@ public class FirebaseSyncService {
 
     private final DatabaseReference firebaseRef;
 
-    public FirebaseSyncService() {
-        this.firebaseRef = FirebaseDatabase.getInstance().getReference("Utilisateur");
+    @Autowired
+    public FirebaseSyncService(FirebaseApp firebaseApp) {
+        this.firebaseRef = FirebaseDatabase.getInstance(firebaseApp).getReference("Utilisateur");
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -22,4 +25,5 @@ public class FirebaseSyncService {
                 .setValueAsync(utilisateur);
     }
 }
+
 
