@@ -1,6 +1,5 @@
 <?php 
 
-
 namespace App\Service;
 
 use App\Entity\GenerateLetter;
@@ -46,16 +45,15 @@ class AuthentificationService
             throw new \Exception('Token non valide ou inexistant.');
         }
         $dateNow = new \DateTime();
-        //dump($dateNow);
         $tempsRestant = new \DateTime($result['temps_restant']);
-        $diffInSeconds = $dateNow->getTimestamp() - $tempsRestant->getTimestamp();
 
+        $diffInSeconds = $dateNow->getTimestamp() - $tempsRestant->getTimestamp();
         if ($diffInSeconds > $this->tokenExpiration) {
             $this->deleteExpiredToken($result['id_session']);
-            $this->updateTentativeRestantByEmail2($result['email'],  $this->tentative);
+            $sql=$this->updateTentativeRestantByEmail2($result['id_utilisateur'],  $this->tentative);
             throw new \Exception('Token expiré.');
         }
-        return 'Token valide';
+        return "Opération effectuée avec succès";
     }
 
 
@@ -272,21 +270,18 @@ class AuthentificationService
         $queryBuilder->execute();
     }
 
-    public function updateTentativeRestantByEmail2(string $email, int $tentativeToTake)
+    public function updateTentativeRestantByEmail2(int $idUser, int $tentativeToTake)
     {
-        // Utilisation de QueryBuilder pour l'UPDATE
         $queryBuilder = $this->connection->createQueryBuilder();
+        
 
         $queryBuilder
-            ->update('utilisateur') // Nom de la table
-            ->set('tentative_restant', ':tentativeToTake') // Mise à jour de tentative_restant
-            ->where('email = :email') // Condition
-            ->setParameter('tentativeToTake', $tentativeToTake) // Paramètre
-            ->setParameter('email', $email); // Paramètre
-        
-        
+            ->update('utilisateur')
+            ->set('tentative_restant', ':tentativeToTake')
+            ->where('id_utilisateur = :id_utilisateur')
+            ->setParameter('tentativeToTake', $tentativeToTake)
+            ->setParameter('id_utilisateur', $idUser); 
             
-        // Exécution de la requête
         $queryBuilder->execute();
     }
 

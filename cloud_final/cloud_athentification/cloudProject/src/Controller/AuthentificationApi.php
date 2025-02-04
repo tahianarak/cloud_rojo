@@ -80,10 +80,11 @@ class AuthentificationApi extends AbstractController
                 'error' => 'token requis'
             ], JsonResponse::HTTP_BAD_REQUEST);
         }
+        
         $token = $data['token'];
         try {
-            $data = $this->authService->verifyValidityOfToken($token);
-            return $this->json($this->rest->sendResponse('success', $data, null, 200));
+            $ans = $this->authService->verifyValidityOfToken($token);
+            return $this->json($this->rest->sendResponse('success', $ans, null, 200));
         } catch (\Exception $e) {
             return $this->json($this->rest->sendResponse('error', null, $e->getMessage(), 500));
         }
