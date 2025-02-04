@@ -62,6 +62,7 @@
         </a>
       </li>
 
+<<<<<<< HEAD
        <li class="nav-item">
         <a class="nav-link collapsed" href="/ListDepot">
           <i class="bi bi-grid"></i>
@@ -83,6 +84,9 @@
                 <span>Deconnect</span>
             </a>
         </li>
+=======
+
+>>>>>>> parent of 1d63559 (Merge pull request #15 from tahianarak/validation-depot-retrait)
 
 
 
