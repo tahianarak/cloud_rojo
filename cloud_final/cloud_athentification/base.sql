@@ -5,8 +5,8 @@ CREATE TABLE utilisateur(
    date_naissance DATE NOT NULL,
    email VARCHAR(512)  NOT NULL,
    mdp VARCHAR(255)  NOT NULL,
-   photo_profil VARCHAR(255),
    tentative_restant INTEGER NOT NULL,
+   is_admin INT NOT NULL default 0,
    PRIMARY KEY(id_utilisateur)
 );
 
@@ -49,10 +49,10 @@ CREATE TABLE validation_unlock(
    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
 
-INSERT INTO utilisateur ( nom, date_ens, date_naissance, email, mdp, tentative_restant)
+INSERT INTO utilisateur ( nom, date_ens, date_naissance, email, mdp, tentative_restant,is_admin)
 VALUES
-( 'Randria Valisoa', '2023-01-15', '1985-07-23', 'RandriaVals2303@gmail.com', MD5('vals'), 3),
-( 'Andria Mirindra', '2023-01-15', '1985-07-23', 'mixandria19@gmail.com', MD5('mix'), 3);
+( 'Randria Valisoa', '2023-01-15', '1985-07-23', 'RandriaVals2303@gmail.com', MD5('vals'), 3,1),
+( 'Andria Mirindra', '2023-01-15', '1985-07-23', 'mixandria19@gmail.com', MD5('mix'), 3,0);
 
 CREATE TABLE crypto(
    id_crypto serial,
@@ -84,6 +84,16 @@ CREATE TABLE depot_retrait(
    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
 
+CREATE TABLE depot_retrait_temporaire(
+   id_depot_retrait serial,
+   depot NUMERIC(15,2)  ,
+   retrait NUMERIC(15,2)  ,
+   date_depot_retrait TIMESTAMP,
+   id_utilisateur INTEGER NOT NULL,
+   PRIMARY KEY(id_depot_retrait),
+   FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
+);
+
 CREATE TABLE transaction(
    id_transaction serial,
    vente NUMERIC(15,2)  ,
@@ -97,6 +107,7 @@ CREATE TABLE transaction(
    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
 
+
 CREATE TABLE commission
 (
     id_commission serial PRIMARY KEY,
@@ -107,18 +118,18 @@ CREATE TABLE commission
     description VARCHAR(100)
 );
 --DATA
-INSERT INTO utilisateur (nom, date_ens, date_naissance, email, mdp,photo_profil, tentative_restant)
+INSERT INTO utilisateur (nom, date_ens, date_naissance, email, mdp, tentative_restant,is_admin)
 VALUES
-('Ravelo Herisoa', '2024-01-01', '1985-01-01', 'randria@mailinator.com', MD5('1111'),'profil.jpg', 3),
-('Ramanantsoa Tiana', '2024-01-02', '1986-02-02', 'rakoto@mailinator.com', MD5('2222'),'profil.jpg', 3),
-('Rasoamanana Haja', '2024-01-03', '1987-03-03', 'kaloina@mailinator.com', MD5('3333'),'profil.jpg', 3),
-('Andrianirina Voahirana', '2024-01-04', '1988-04-04', 'hedy@mailinator.com', MD5('4444'),'profil.jpg', 3),
-('Rakotomalala Miora', '2024-01-05', '1989-05-05', 'raly@mailinator.com', MD5('5555'),'profil.jpg', 3),
-('Andriamampianina Zo', '2024-01-06', '1990-06-06', 'valisoa@mailinator.com', MD5('6666'),'profil.jpg', 3),
-('Razafindralambo Lova', '2024-01-07', '1991-07-07', 'rotsy@mailinator.com', MD5('7777'),'profil.jpg', 3),
-('Rambeloson Faly', '2024-01-08', '1992-08-08', 'dany@mailinator.com', MD5('8888'),'profil.jpg', 3),
-('Rasolofomanana Noro', '2024-01-09', '1993-09-09', 'teddy@mailinator.com', MD5('9999'),'profil.jpg', 3),
-('Randrianarisoa Arisoa', '2024-01-10', '1994-10-10', 'rohy@mailinator.com', MD5('0000'),'profil.jpg', 3);
+('Ravelo Herisoa', '2024-01-01', '1985-01-01', 'randria@mailinator.com', MD5('1111'), 3,0),
+('Ramanantsoa Tiana', '2024-01-02', '1986-02-02', 'rakoto@mailinator.com', MD5('2222'), 3,0),
+('Rasoamanana Haja', '2024-01-03', '1987-03-03', 'kaloina@mailinator.com', MD5('3333'), 3,0),
+('Andrianirina Voahirana', '2024-01-04', '1988-04-04', 'hedy@mailinator.com', MD5('4444'), 3,0),
+('Rakotomalala Miora', '2024-01-05', '1989-05-05', 'raly@mailinator.com', MD5('5555'), 3,0),
+('Andriamampianina Zo', '2024-01-06', '1990-06-06', 'valisoa@mailinator.com', MD5('6666'), 3,0),
+('Razafindralambo Lova', '2024-01-07', '1991-07-07', 'rotsy@mailinator.com', MD5('7777'), 3,0),
+('Rambeloson Faly', '2024-01-08', '1992-08-08', 'dany@mailinator.com', MD5('8888'), 3,0),
+('Rasolofomanana Noro', '2024-01-09', '1993-09-09', 'teddy@mailinator.com', MD5('9999'), 3,0),
+('Randrianarisoa Arisoa', '2024-01-10', '1994-10-10', 'rohy@mailinator.com', MD5('0000'), 3,1);
 
 INSERT INTO crypto (libelle, prix_actuelle, date_update)
 VALUES

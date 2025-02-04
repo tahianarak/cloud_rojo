@@ -62,9 +62,30 @@
         </a>
       </li>
 
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="/ListDepot">
+          <i class="bi bi-grid"></i>
+          <span>List Depot</span>
+        </a>
+      </li>
 
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="/ListRetrait">
+          <i class="bi bi-grid"></i>
+          <span>List Retrait</span>
+        </a>
+      </li>
+        <%}%>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/auth/deconnect">
+                <i class="bi bi-grid"></i>
+                <span>Deconnect</span>
+            </a>
+        </li>
 
 
 
     </ul>
+
   </aside>

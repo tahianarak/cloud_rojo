@@ -7,6 +7,7 @@ import com.crypto.service.utilisateur.UtilisateurService;
 import jakarta.servlet.http.HttpServletRequest;
 import jdk.jshell.execution.Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.Banner;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -20,18 +21,24 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
 @RequestMapping("/auth")
 public class AuthentificationController {
 
+    
 
     @Autowired
-    UserService userService;
-    private final String symfonyBaseUrl = "http://symfony-app:8000/api";
+    UserService userService; 
+    @Value("${link_symfony}")
+    String uri ; 
+
+    String  symfonyBaseUrl =  "/api";
+
+    @Autowired
+    UtilisateurService utilisateurService;
+
 
 
     @GetMapping("/deconnect")
@@ -58,7 +65,9 @@ public class AuthentificationController {
 
     @PostMapping("/login")
     public ModelAndView login(@RequestParam("email") String email,@RequestParam("mdp") String mdp, HttpSession session) {
-        String url = symfonyBaseUrl + "/verify/login";
+
+        String url = this.uri + symfonyBaseUrl + "/verify/login";
+   
 
         Map<String,Object> credentials=new HashMap<>();
         credentials.put("email",email);
@@ -84,7 +93,7 @@ public class AuthentificationController {
 
     @PostMapping("/verifyPin")
     public ModelAndView verifyPin(@RequestParam("pin") String pin, HttpSession session) {
-        String url = symfonyBaseUrl + "/verify/pin";
+        String url = this.uri + symfonyBaseUrl + "/verify/pin";
 
         Map<String,String> pinData=new HashMap<>();
         pinData.put("email",(String)session.getAttribute("email"));
