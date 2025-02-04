@@ -107,6 +107,7 @@ CREATE TABLE transaction(
    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
 
+
 CREATE TABLE commission
 (
     id_commission serial PRIMARY KEY,
