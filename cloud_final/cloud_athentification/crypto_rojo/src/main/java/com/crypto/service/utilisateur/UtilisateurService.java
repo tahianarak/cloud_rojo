@@ -5,6 +5,8 @@ import com.crypto.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UtilisateurService {
     @Autowired
@@ -17,4 +19,5 @@ public class UtilisateurService {
     {
         utilisateurRepository.save(utilisateur);
     }
+    public List<Utilisateur> getAllUtilisateurs() {return utilisateurRepository.findAll(); }
 }
