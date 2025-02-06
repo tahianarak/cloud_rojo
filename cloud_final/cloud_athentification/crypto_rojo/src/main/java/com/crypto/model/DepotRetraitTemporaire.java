@@ -3,6 +3,8 @@ package com.crypto.model;
 import com.crypto.model.Utilisateur;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,9 +19,11 @@ public class DepotRetraitTemporaire {
     @Column(name = "id_depot_retrait")
     private Long idDepotRetrait;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     @Column(name = "depot", precision = 15, scale = 2)
     private BigDecimal depot;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     @Column(name = "retrait", precision = 15, scale = 2)
     private BigDecimal retrait;
 
@@ -31,6 +35,7 @@ public class DepotRetraitTemporaire {
     @JoinColumn(name = "id_utilisateur", nullable = false)
     private Utilisateur utilisateur;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     @Transient
     BigDecimal solde;
 
