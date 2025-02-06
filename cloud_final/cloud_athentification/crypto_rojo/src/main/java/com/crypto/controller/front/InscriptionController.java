@@ -1,14 +1,19 @@
 package com.crypto.controller.front;
 
+
+import com.crypto.model.RestConfig;
 import com.crypto.model.Utilisateur;
 import com.crypto.service.UserService;
 import com.crypto.model.crypto.User;
-import com.crypto.service.firebaseSync.FirebaseSyncService;
+import com.crypto.service.firebaseDany.FirebaseServiceIns;
+
 import com.crypto.service.utilisateur.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +23,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -31,6 +35,10 @@ public class InscriptionController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+
+    FirebaseServiceIns firebaseServiceIns;
 
     @Value("${link_spring}")
     String springLink ;
@@ -59,7 +67,9 @@ public class InscriptionController {
         userData.put("mdp",mdp);
         userData.put("app",this.app);
 
-        RestTemplate restTemplate=new RestTemplate();
+
+
+        RestTemplate restTemplate=RestConfig.restTemplate();
 
         ResponseEntity<Map<String , Object>> response = restTemplate.exchange(
                 url,
@@ -71,6 +81,7 @@ public class InscriptionController {
 
         if (response.getBody().get("status").equals("success"))
         {
+
             return new ModelAndView("signup");
         }
         throw  new Exception("oups quelque chose s'est mal passée");
@@ -98,8 +109,13 @@ public class InscriptionController {
             Utilisateur utilisateur = utilisateurService.getById(response.getBody().get("id_user").toString());
             session.setAttribute("token",(String)response.getBody().get("token"));
             session.setAttribute("idUser" , response.getBody().get("id_user").toString());
-            session.setAttribute("user",utilisateur);
-            return new ModelAndView("home");
+
+
+            Utilisateur user=utilisateurService.getById(response.getBody().get("id_user").toString());
+            session.setAttribute("user",user);
+            this.firebaseServiceIns.signUp(user.getEmail(), user.getMdp());
+            return  new ModelAndView("home");
+
         }
         ModelAndView mv= new ModelAndView("error");
         mv.addObject("error",response.getBody().get("error"));

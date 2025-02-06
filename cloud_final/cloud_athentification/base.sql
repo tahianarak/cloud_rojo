@@ -10,6 +10,7 @@ CREATE TABLE utilisateur(
    PRIMARY KEY(id_utilisateur)
 );
 
+
 CREATE TABLE session_utilisateur(
    id_session serial,
    token VARCHAR(255)  NOT NULL,
@@ -106,6 +107,7 @@ CREATE TABLE transaction(
    FOREIGN KEY(id_crypto) REFERENCES crypto(id_crypto),
    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
+
 
 CREATE TABLE commission
 (
