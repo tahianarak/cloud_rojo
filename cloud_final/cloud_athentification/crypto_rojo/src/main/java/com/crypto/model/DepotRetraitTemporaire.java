@@ -1,6 +1,7 @@
 package com.crypto.model;
 
 import com.crypto.model.Utilisateur;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -22,6 +23,7 @@ public class DepotRetraitTemporaire {
     @Column(name = "retrait", precision = 15, scale = 2)
     private BigDecimal retrait;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date_depot_retrait")
     private LocalDateTime dateDepotRetrait;
 

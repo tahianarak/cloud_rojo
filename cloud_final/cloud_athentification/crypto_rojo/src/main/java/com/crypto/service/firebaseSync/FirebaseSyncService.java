@@ -1,5 +1,6 @@
 package com.crypto.service.firebaseSync;
 
+import com.crypto.model.DepotRetraitTemporaire;
 import com.crypto.model.Utilisateur;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.FirebaseApp;
@@ -19,17 +20,29 @@ public class FirebaseSyncService {
 
     @Autowired
     public FirebaseSyncService(FirebaseApp firebaseApp) {
-        this.firebaseRef = FirebaseDatabase.getInstance(firebaseApp).getReference("Utilisateur");
+        this.firebaseRef = FirebaseDatabase.getInstance(firebaseApp).getReference("DepotRetraitTemporaire");
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void syncUtilisateur(Utilisateur utilisateur) {
+    public void syncDepotRetraitTemporaire(DepotRetraitTemporaire depotRetraitTemporaire) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, Object> utilisateurMap = objectMapper.convertValue(utilisateur, Map.class);
+            Map<String, Object> data = objectMapper.convertValue(depotRetraitTemporaire, Map.class);
+            data.put("idUtilisateur", depotRetraitTemporaire.getUtilisateur().getIdUtilisateur());
+            data.remove("utilisateur");
 
-            firebaseRef.child(String.valueOf(utilisateur.getIdUtilisateur()))
-                    .setValueAsync(utilisateurMap);
+            firebaseRef.child(String.valueOf(depotRetraitTemporaire.getIdDepotRetrait()))
+                    .setValueAsync(data);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void deleteDepotRetraitTemporaire(DepotRetraitTemporaire depotRetraitTemporaire) {
+        try {
+            firebaseRef.child(String.valueOf(depotRetraitTemporaire.getIdDepotRetrait()))
+                    .removeValueAsync();
         } catch (Exception e) {
             e.printStackTrace();
         }
