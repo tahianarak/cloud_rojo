@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "4961c938-fe94-44b1-bb3b-38df6997c61b",
+		"name": "Gestion compte utilisateur",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39144650"
+	},
+	"item": [
+		{
+			"name": "gestion compte",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\r\n        \"idUser\": 9, \r\n        \"nom\": \"andria\", \r\n        \"date_naissance\": \"1990-01-01\" , \r\n        \"mdp\": \"150\"\r\n    }     \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/updateUser",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"updateUser"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,12 @@
+composer require nelmio/api-doc-bundle:^4.33.4
+composer require zircote/swagger-php 
+composer require swagger-api/swagger-ui
+composer require symfony/webpack-encore-bundle
+composer show symfony/serializer
+composer require symfony/routing 
+composer symfony/http-foundation 
+composer symfony/http-kernel
+
+
+lien git : https://github.com/RotsyEvah/cloud.git
+
