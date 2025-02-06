@@ -223,7 +223,6 @@ VALUES
 (0.00, 0.00006, NOW() - INTERVAL '1 DAY', 9, 9),
 (0.00, 175.00, NOW() - INTERVAL '3 DAYS', 10, 10);
 
-
 INSERT INTO commission (date_ens, pourcentage, id_crypto, description)
 VALUES
     ('2025-01-27 08:32:11.456000', 15.67, 1, 'Commission for Bitcoin'),
