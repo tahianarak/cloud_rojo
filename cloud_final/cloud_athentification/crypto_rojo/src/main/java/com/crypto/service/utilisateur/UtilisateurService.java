@@ -11,22 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UtilisateurService {
     @Autowired
     UtilisateurRepository utilisateurRepository;
-
-    @Autowired
-    private FirebaseSyncService firebaseSyncService;
-
-    @Transactional
-    public void syncFirebaseUser(Utilisateur utilisateur)
-    {
-        firebaseSyncService.syncUtilisateur(utilisateur);
-    }
     public Utilisateur getById(String id)
     {
         return utilisateurRepository.getById(Integer.valueOf(id));
     }
     public void save (Utilisateur utilisateur)
     {
-        syncFirebaseUser(utilisateur);
         utilisateurRepository.save(utilisateur);
     }
 }

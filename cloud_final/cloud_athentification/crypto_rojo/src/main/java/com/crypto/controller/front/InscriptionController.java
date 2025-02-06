@@ -99,7 +99,6 @@ public class InscriptionController {
             session.setAttribute("token",(String)response.getBody().get("token"));
             session.setAttribute("idUser" , response.getBody().get("id_user").toString());
             session.setAttribute("user",utilisateur);
-            utilisateurService.syncFirebaseUser(utilisateur);
             return new ModelAndView("home");
         }
         ModelAndView mv= new ModelAndView("error");
