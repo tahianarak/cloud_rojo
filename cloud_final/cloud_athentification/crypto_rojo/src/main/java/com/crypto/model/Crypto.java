@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Crypto {
 
-    int idCrypto;
-    String libelle;
-    double prixActuelle;
-    Timestamp dateUpdate;
+    private int idCrypto;
+    private String libelle;
+    private double prixActuelle;
+    private Timestamp dateUpdate;
 
     // Constructeur
     public Crypto(int idCrypto, String libelle, double prixActuelle, Timestamp dateUpdate) {
