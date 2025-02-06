@@ -19,6 +19,7 @@ CREATE TABLE session_utilisateur(
    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
 
+
 CREATE TABLE validation_inscription(
    id_validation serial,
    nom VARCHAR(255)  NOT NULL,
