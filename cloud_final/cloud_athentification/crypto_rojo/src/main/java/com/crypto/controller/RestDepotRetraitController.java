@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.crypto.service.DepotRetraitTemporaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +34,7 @@ public class RestDepotRetraitController {
     private  DepotRetraitRepository depotRetraitRepo ;
 
     @Autowired
-    private  DepotRetraitTemporaireRepository depotRetraitTempRepo ;
+    private DepotRetraitTemporaireService depotRetraitTempRepo ;
 
 
     @Autowired
@@ -61,7 +62,7 @@ public class RestDepotRetraitController {
             depotRetrait.setRetrait(0);
             depotRetraitRepo.insertDepotRetrait(depotRetrait);
 
-            DepotRetraitTemporaire depotRetraitTemporaire = depotRetraitTempRepo.getById( idDepotRetraitTemporaire ) ; 
+            DepotRetraitTemporaire depotRetraitTemporaire = depotRetraitTempRepo.getById(String.valueOf(idDepotRetraitTemporaire)) ;
             depotRetraitTempRepo.delete( depotRetraitTemporaire ) ; 
 
             String data = "insertion de depot effectuee";
@@ -92,7 +93,7 @@ public class RestDepotRetraitController {
            depotRetrait.setRetrait(money);
            depotRetraitRepo.insertDepotRetrait(depotRetrait);
 
-           DepotRetraitTemporaire depotRetraitTemporaire = depotRetraitTempRepo.getById( idDepotRetraitTemporaire ) ; 
+           DepotRetraitTemporaire depotRetraitTemporaire = depotRetraitTempRepo.getById(String.valueOf(idDepotRetraitTemporaire)) ;
            depotRetraitTempRepo.delete( depotRetraitTemporaire ) ; 
 
             String data = "insertion de retrait effectuee";
@@ -127,7 +128,7 @@ public class RestDepotRetraitController {
             depotRetraitTemporaire.setDepot( trueDepot ); 
             BigDecimal trueRetrait = new BigDecimal(0 );
             depotRetraitTemporaire.setRetrait(trueRetrait) ;
-            depotRetraitTempRepo.save( depotRetraitTemporaire ) ; 
+            depotRetraitTempRepo.save( depotRetraitTemporaire ) ;
            
             String data = "validation de depot effectuee";
             String jsonResponse = formatter.formatResponseToJson(data, null);
