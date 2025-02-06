@@ -12,11 +12,13 @@ import java.io.IOException;
 
 @Configuration
 public class FirebaseConfig {
+    String jsonPath = "src/main/resources/test";
 
+    //String jsonPath = "src/main/resources/firebase-service.json";
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
         FileInputStream serviceAccount =
-                new FileInputStream("src/main/resources/firebase-service.json");
+                new FileInputStream(jsonPath);
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
