@@ -27,7 +27,7 @@ public class FireBaseConfig {
             // Configurer Firebase
             FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://projectfirebase1-ee66e-default-rtdb.firebaseio.com/")  
+                .setDatabaseUrl("https://firstproject-8b46d-default-rtdb.asia-southeast1.firebasedatabase.app/")  
                 .build();
 
             // Vérifier si Firebase est déjà initialisé
