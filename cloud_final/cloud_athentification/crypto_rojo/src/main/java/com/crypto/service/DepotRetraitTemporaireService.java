@@ -39,6 +39,11 @@ public class DepotRetraitTemporaireService {
         firebaseSyncService.syncDepotRetraitTemporaire(depotRetraitTemporaire);
     }
 
+    public void save_only_base(DepotRetraitTemporaire depotRetraitTemporaire)
+    {
+        depotRetraitTemporaireRepository.save(depotRetraitTemporaire);
+    }
+
     public void delete(DepotRetraitTemporaire depotRetraitTemporaire)
     {
         depotRetraitTemporaireRepository.delete(depotRetraitTemporaire);

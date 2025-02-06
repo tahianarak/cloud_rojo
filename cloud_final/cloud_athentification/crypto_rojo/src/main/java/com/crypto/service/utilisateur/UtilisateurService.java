@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UtilisateurService {
     @Autowired
     UtilisateurRepository utilisateurRepository;
+
+
     public Utilisateur getById(String id)
     {
         return utilisateurRepository.getById(Integer.valueOf(id));
@@ -18,5 +20,9 @@ public class UtilisateurService {
     public void save (Utilisateur utilisateur)
     {
         utilisateurRepository.save(utilisateur);
+    }
+    public Utilisateur getByMail(String mail)
+    {
+        return utilisateurRepository.getByMail(mail);
     }
 }

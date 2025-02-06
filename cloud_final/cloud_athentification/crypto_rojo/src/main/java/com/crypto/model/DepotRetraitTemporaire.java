@@ -39,6 +39,30 @@ public class DepotRetraitTemporaire {
     @Transient
     BigDecimal solde;
 
+    @JsonSerialize(using = ToStringSerializer.class)
+    @Transient
+    String key_firebase;
+
+    @JsonSerialize(using = ToStringSerializer.class)
+    @Transient
+    String in_postgres;
+
+    public String getIn_postgres() {
+        return in_postgres;
+    }
+
+    public void setIn_postgres(String in_postgres) {
+        this.in_postgres = in_postgres;
+    }
+
+    public String getKey_firebase() {
+        return key_firebase;
+    }
+
+    public void setKey_firebase(String key_firebase) {
+        this.key_firebase = key_firebase;
+    }
+
     public BigDecimal getSolde() {
         return solde;
     }
