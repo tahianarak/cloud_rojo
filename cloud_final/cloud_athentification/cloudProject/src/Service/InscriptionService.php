@@ -75,9 +75,9 @@ class InscriptionService
         try { 
             $sql = "
             INSERT INTO utilisateur 
-                (nom, date_ens, date_naissance, email, mdp, tentative_restant) 
+                (nom, date_ens, date_naissance, email, mdp, tentative_restant,is_admin) 
             VALUES 
-            (:nom, :date_ens, :date_naissance, :email, :mdp , :tentative_restant)
+            (:nom, :date_ens, :date_naissance, :email, :mdp , :tentative_restant,0)
             ";
             
             $stmt = $this->connection->prepare($sql);
