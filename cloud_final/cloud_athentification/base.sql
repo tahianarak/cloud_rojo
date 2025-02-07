@@ -125,10 +125,10 @@ VALUES
 ('Ravelo Herisoa', '2024-01-01', '1985-01-01', 'randria@mailinator.com', MD5('1111'), 3,'profil.jpg',0),
 ('Ramanantsoa Tiana', '2024-01-02', '1986-02-02', 'rakoto@mailinator.com', MD5('2222'), 3,'profil.jpg',0),
 ('Rasoamanana Haja', '2024-01-03', '1987-03-03', 'kaloina@mailinator.com', MD5('3333'), 3,'profil.jpg',0),
-('Andrianirina Voahirana', '2024-01-04', '1988-04-04', 'hedy@mailinator.com', MD5('4444'),'profil.jpg', 3,0),
+('Andrianirina Voahirana', '2024-01-04', '1988-04-04', 'hedy@mailinator.com', MD5('4444'),3,'profil.jpg', 0),
 ('Rakotomalala Miora', '2024-01-05', '1989-05-05', 'raly@mailinator.com', MD5('5555'), 3,'profil.jpg',0),
-('Andriamampianina Zo', '2024-01-06', '1990-06-06', 'valisoa@mailinator.com', MD5('6666'),'profil.jpg', 3,0),
-('Razafindralambo Lova', '2024-01-07', '1991-07-07', 'rotsy@mailinator.com', MD5('7777'),'profil.jpg', 3,0),
+('Andriamampianina Zo', '2024-01-06', '1990-06-06', 'valisoa@mailinator.com', MD5('6666'),3,'profil.jpg', 0),
+('Razafindralambo Lova', '2024-01-07', '1991-07-07', 'rotsy@mailinator.com', MD5('7777'),3,'profil.jpg', 0),
 ('Rambeloson Faly', '2024-01-08', '1992-08-08', 'dany@mailinator.com', MD5('8888'), 3,'profil.jpg',0),
 ('Rasolofomanana Noro', '2024-01-09', '1993-09-09', 'teddy@mailinator.com', MD5('9999'), 3,'profil.jpg',0),
 ('Randrianarisoa Arisoa', '2024-01-10', '1994-10-10', 'rohy@mailinator.com', MD5('0000'), 3,'profil.jpg',1);
