@@ -1,5 +1,4 @@
 package com.crypto.model;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -17,11 +16,9 @@ public class Utilisateur {
     @Column(name = "nom", nullable = false, length = 255)
     private String nom;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date_ens", nullable = false)
     private LocalDate dateEns;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date_naissance", nullable = false)
     private LocalDate dateNaissance;
 
