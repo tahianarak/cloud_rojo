@@ -1,5 +1,16 @@
 
 
+<%@ page import="com.crypto.model.*" %>
+<%@ page import="java.util.List" %>
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,7 +66,7 @@
 
 
   <main id="main" class="main">
-  <form action="/ValiderRetrait" method="post"> 
+  <form action="/ValiderRetrait" method="post">
     <div class="container mt-5">
         <h2 class="text-center">Liste retrait invalide</h2>
         <table class="table table-bordered table-striped">
@@ -69,32 +80,32 @@
                 </tr>
             </thead>
             <tbody>
-                <% 
+                <%
                     // Supposons que 'depotRetraitTemporaire' soit un objet de type DepotRetraitTemporaire passé à la vue
                     List<DepotRetraitTemporaire> depotRetraitTemporaires = (List<DepotRetraitTemporaire>) request.getAttribute("retraits");
                 %>
                 <tr>
-                
-                <% 
-                  if (depotRetraitTemporaires != null && !depotRetraitTemporaires.isEmpty()) {  
-                      for (DepotRetraitTemporaire depotRetraitTemporaire : depotRetraitTemporaires ) { %> 
+
+                <%
+                  if (depotRetraitTemporaires != null && !depotRetraitTemporaires.isEmpty()) {
+                      for (DepotRetraitTemporaire depotRetraitTemporaire : depotRetraitTemporaires ) { %>
                           <td><%= depotRetraitTemporaire.getIdDepotRetrait() %></td>
                           <td><%= depotRetraitTemporaire.getDateDepotRetrait() %></td>
                           <td><%= depotRetraitTemporaire.getRetrait() %></td>
                           <td><%= depotRetraitTemporaire.getUtilisateur().getNom() %></td>
-                          <td> 
+                          <td>
                                  <button type="submit" class="btn btn-primary">valider</button>
                           </td>
-                          <input type="hidden" name="idDepotRetraitTemporaire" value="<%= depotRetraitTemporaire.getIdDepotRetrait() %>" > 
+                          <input type="hidden" name="idDepotRetraitTemporaire" value="<%= depotRetraitTemporaire.getIdDepotRetrait() %>" >
                           <input type="hidden" name="dateDepotRetrait" value="<%= depotRetraitTemporaire.getDateDepotRetrait() %>" >
-                          <input type="hidden" name="idUser" value="<%= depotRetraitTemporaire.getUtilisateur().getIdUtilisateur() %>" >  
+                          <input type="hidden" name="idUser" value="<%= depotRetraitTemporaire.getUtilisateur().getIdUtilisateur() %>" >
                           <input type="hidden" name="montant" value="<%= depotRetraitTemporaire.getRetrait() %>" >
-                      <% }} %> 
+                      <% }} %>
                 </tr>
             </tbody>
-        </table> 
+        </table>
     </div>
-    </form> 
+    </form>
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

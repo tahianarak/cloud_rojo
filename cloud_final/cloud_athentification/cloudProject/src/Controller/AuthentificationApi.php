@@ -148,7 +148,7 @@ class AuthentificationApi extends AbstractController
                 'error' => 'Email et pin requis.'
             ], JsonResponse::HTTP_BAD_REQUEST);
         }
-        $email = $data['email'];
+        $email = strtolower($data['email']);
         $pin = $data['pin'];
         try {
             $data = $this->authService->verifyPin($email, $pin);
@@ -222,7 +222,7 @@ public function verify(Request $request)
             'error' => 'Email et mot de passe requis.'
         ], JsonResponse::HTTP_BAD_REQUEST);
     }
-    $email = $data['email'];
+    $email = strtolower($data['email']);
     $mdp = $data['mdp'];
     try {
         $this->authService->verifyLogin($email, $mdp);

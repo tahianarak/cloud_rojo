@@ -14,7 +14,7 @@ import java.io.IOException;
 public class FirebaseConfig {
     //String jsonPath = "src/main/resources/test";
 
-    String jsonPath = "src/main/resources/firebase-service.json";
+    String jsonPath = "src/main/resources/google-services.json";
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
         FileInputStream serviceAccount =
