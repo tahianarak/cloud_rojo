@@ -11,6 +11,7 @@ CREATE TABLE utilisateur(
    PRIMARY KEY(id_utilisateur)
 );
 
+
 CREATE TABLE session_utilisateur(
    id_session serial,
    token VARCHAR(255)  NOT NULL,
