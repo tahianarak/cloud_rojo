@@ -56,7 +56,7 @@
                                                                             <label for="bloc" class="form-label">Choisir Crypto</label>
                                                                             <select id="bloc" class="form-select" name="cryptos">
                                                                                 <% for (Crypto cryptos : cryptoList) {%>
-                                                                                <option value="<%= cryptos.getIdCrypto() %>"> <%= cryptos.getLibelle() %> | <%= cryptos.getPrixActuelle() %> USD </option>
+                                                                                <option value="<%= cryptos.getIdCrypto() %>"> <%= cryptos.getLibelle() %> </option>
                                                                                 <% } %>
                                                                             </select>
                                                                         </div>

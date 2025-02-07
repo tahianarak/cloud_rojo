@@ -53,7 +53,7 @@ CREATE TABLE validation_unlock(
 
 INSERT INTO utilisateur ( nom, date_ens, date_naissance, email, mdp, tentative_restant, photo_profil,is_admin)
 VALUES
-( 'Randria Valisoa', '2023-01-15', '1985-07-23', 'RandriaVals2303@gmail.com', MD5('vals'), 3,'profil.jpg',1),
+( 'Randria Valisoa', '2023-01-15', '1985-07-23', 'randriavals2303@gmail.com', MD5('vals'), 3,'profil.jpg',1),
 ( 'Andria Mirindra', '2023-01-15', '1985-07-23', 'mixandria19@gmail.com', MD5('mix'), 3,'profil.jpg',0);
 
 CREATE TABLE crypto(
