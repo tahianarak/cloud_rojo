@@ -15,9 +15,6 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
-
-src/main/resources/firebase-service.json
-
 *.iws
 *.iml
 *.ipr
