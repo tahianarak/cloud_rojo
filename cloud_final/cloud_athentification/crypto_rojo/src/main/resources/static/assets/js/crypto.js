@@ -4,6 +4,7 @@ let chartInterval = null;
 const pointVisibility = 7 ; 
 let secondLoad = 2000 ; 
 
+
 function loadCryptos() {
     $.ajax({
         url: '/ListCryptoJSON', 

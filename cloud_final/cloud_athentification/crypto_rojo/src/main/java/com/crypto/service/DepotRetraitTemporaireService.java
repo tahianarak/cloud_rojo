@@ -3,7 +3,6 @@ package com.crypto.service;
 import com.crypto.model.DepotRetraitTemporaire;
 import com.crypto.repository.DepotRetraitRepository;
 import com.crypto.repository.DepotRetraitTemporaireRepository;
-import com.crypto.service.firebaseSync.FirebaseSyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,9 +14,6 @@ import java.util.List;
 public class DepotRetraitTemporaireService {
     @Autowired
     DepotRetraitTemporaireRepository depotRetraitTemporaireRepository;
-
-    @Autowired
-    private FirebaseSyncService firebaseSyncService;
     public List<DepotRetraitTemporaire> getAll(){
         return depotRetraitTemporaireRepository.findAll();
     }
@@ -36,17 +32,10 @@ public class DepotRetraitTemporaireService {
     public void save(DepotRetraitTemporaire depotRetraitTemporaire)
     {
         depotRetraitTemporaireRepository.save(depotRetraitTemporaire);
-        firebaseSyncService.syncDepotRetraitTemporaire(depotRetraitTemporaire);
-    }
-
-    public void save_only_base(DepotRetraitTemporaire depotRetraitTemporaire)
-    {
-        depotRetraitTemporaireRepository.save(depotRetraitTemporaire);
     }
 
     public void delete(DepotRetraitTemporaire depotRetraitTemporaire)
     {
         depotRetraitTemporaireRepository.delete(depotRetraitTemporaire);
-        firebaseSyncService.deleteDepotRetraitTemporaire(depotRetraitTemporaire);
     }
 }
