@@ -43,6 +43,7 @@ public class FireBaseConfig {
         }
         return null; 
     }
+
     @Bean
     public FirebaseDatabase firebaseDatabase(FirebaseApp firebaseApp) {
         return FirebaseDatabase.getInstance(firebaseApp);

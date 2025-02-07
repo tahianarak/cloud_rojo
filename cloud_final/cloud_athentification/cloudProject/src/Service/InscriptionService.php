@@ -85,7 +85,7 @@ class InscriptionService
                 'nom' => $data['nom'],
                 'date_ens' => $data['date_inscription'],
                 'date_naissance' => $data['date_naissance'],
-                'email' => $data['email'],
+                'email' =>strtolower( $data['email']),
                 'mdp' => $data['mdp'],
                 'tentative_restant' => $this->tentative
             ]);

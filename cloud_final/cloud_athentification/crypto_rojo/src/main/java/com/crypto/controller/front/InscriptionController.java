@@ -99,15 +99,23 @@ public class InscriptionController {
                 new ParameterizedTypeReference<Map<String, Object>>() {},
                 Map.class
         );
-   
-        if (((String)response.getBody().get("status")).equals("success"))
+        try
         {
-            session.setAttribute("token",(String)response.getBody().get("token"));
-            session.setAttribute("idUser" , response.getBody().get("id_user").toString());
-            Utilisateur user=utilisateurService.getById(response.getBody().get("id_user").toString());
-            session.setAttribute("user",user);
-            this.firebaseServiceIns.signUp(user.getEmail(), user.getMdp());
-            return  new ModelAndView("home");
+            if (((String)response.getBody().get("status")).equals("success"))
+            {
+                session.setAttribute("token",(String)response.getBody().get("token"));
+                session.setAttribute("idUser" , response.getBody().get("id_user").toString());
+                Utilisateur user=utilisateurService.getById(response.getBody().get("id_user").toString());
+                session.setAttribute("user",user);
+                this.firebaseServiceIns.signUp(user.getEmail(), user.getMdp());
+                return  new ModelAndView("home");
+            }
+
+        }
+        catch(Exception e)
+        {
+            ModelAndView mv= new ModelAndView("error");
+            mv.addObject("error","ce mail existe deja pour cet utilisateur");
         }
         ModelAndView mv= new ModelAndView("error");
         mv.addObject("error",response.getBody().get("error"));
