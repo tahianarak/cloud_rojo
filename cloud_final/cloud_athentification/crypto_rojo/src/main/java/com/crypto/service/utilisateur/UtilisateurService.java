@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UtilisateurService {
     @Autowired
@@ -21,6 +23,9 @@ public class UtilisateurService {
     {
         utilisateurRepository.save(utilisateur);
     }
+
+    public List<Utilisateur> getAllUtilisateurs() {return utilisateurRepository.findAll(); }
+
     public Utilisateur getByMail(String mail)
     {
         return utilisateurRepository.getByMail(mail);
