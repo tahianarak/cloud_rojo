@@ -28,6 +28,7 @@ public class CryptoRepository {
 
     @Autowired
     private final JdbcTemplate jdbcTemplate;
+    
     private final DatabaseReference database;
 
 
@@ -77,5 +78,6 @@ public class CryptoRepository {
                 .child("dateUpdate").setValueAsync(dateUpdateStr);          
         }
     }
+
 
 } 

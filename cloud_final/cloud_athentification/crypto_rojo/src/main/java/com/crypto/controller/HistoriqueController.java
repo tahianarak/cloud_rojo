@@ -47,5 +47,5 @@ public class HistoriqueController {
         modelAndView.addObject("cryptos", cryptos);
 
         return modelAndView;
-    }
+    }    
 }

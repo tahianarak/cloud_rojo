@@ -54,7 +54,6 @@ public class RestCryptoController {
         }
     }
 
-
     @Scheduled(fixedRate = 2000)
     @GetMapping("/syncCrypto")
     public ResponseEntity<String> listCryptoSync() {
