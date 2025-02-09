@@ -63,7 +63,7 @@ public class InscriptionController {
         userData.put("mdp",mdp);
         userData.put("app",this.app);
 
-
+        session.setAttribute("mdpTemp",mdp);
 
         RestTemplate restTemplate=RestConfig.restTemplate();
 
@@ -107,7 +107,8 @@ public class InscriptionController {
                 session.setAttribute("idUser" , response.getBody().get("id_user").toString());
                 Utilisateur user=utilisateurService.getById(response.getBody().get("id_user").toString());
                 session.setAttribute("user",user);
-                this.firebaseServiceIns.signUp(user.getEmail(), user.getMdp());
+                this.firebaseServiceIns.signUp(user.getEmail(), (String) session.getAttribute("mdpTemp"));
+                session.setAttribute("mdpTemp",null);
                 return  new ModelAndView("home");
             }
 
