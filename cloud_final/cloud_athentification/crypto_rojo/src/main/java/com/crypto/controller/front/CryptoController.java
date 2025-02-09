@@ -7,6 +7,7 @@ import com.crypto.model.cryptos.Crypto;
 import com.crypto.service.CryptoService;
 import com.crypto.service.crypto.MyCryptoService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class CryptoController
     }
 
     @PostMapping("/insertVente")
-    public ModelAndView insertVente(HttpServletRequest requestpage, HttpSession session) throws Exception {
+    public void insertVente(HttpServletRequest requestpage, HttpServletResponse response, HttpSession session) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         String idUser=(String)session.getAttribute("idUser");
 
@@ -59,10 +61,13 @@ public class CryptoController
         map.put("token",String.valueOf((String)session.getAttribute("token")));
 
         String reponse=Mapper.sendPostRequest(this.url+"/create",map,restTemplate);
-
-        ModelAndView mv=new ModelAndView("result");
-        mv.addObject("resultat",reponse);
-        return mv;
+        String escapedResponse = reponse.replace("'", "\\'").replace("\"", "\\\"");
+        String redirectString = "/formulaireDeVente";
+        PrintWriter writer = response.getWriter();
+        writer.println("<script type='text/javascript'>"
+                + "alert('"+escapedResponse+"');"
+                + "window.location.href = '" + redirectString + "';"
+                + "</script>");
 
     }
 }

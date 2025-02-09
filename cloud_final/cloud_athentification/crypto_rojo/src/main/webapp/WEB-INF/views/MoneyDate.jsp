@@ -60,7 +60,6 @@
         <th>Achat</th>
         <th>Vente</th>
         <th>Protefeuille monetaire</th>
-        <th>Valeur Crypto</th>
     </tr>
     </thead>
     <tbody>
@@ -70,7 +69,6 @@
                 <td><%= transaction.getAchat() %></td>
                 <td><%= transaction.getVente() %></td>
                 <td><%= transaction.getArgent() %></td>
-                <td><%= transaction.getValeurCryptoReste() %></td>
             </tr>
         <%}}%>
     </tbody>

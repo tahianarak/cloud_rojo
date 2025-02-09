@@ -151,7 +151,6 @@ public class AchatController {
         catch (Exception e)
         {
             PrintWriter writer = response.getWriter();
-            e.printStackTrace(writer);
             writer.println("<script type='text/javascript'>"
                     + "alert('Achat refusé:"+e.getMessage()+"');"
                     + "window.location.href = '" + redirectString + "';"

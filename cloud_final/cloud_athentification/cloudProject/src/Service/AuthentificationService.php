@@ -86,7 +86,7 @@ class AuthentificationService
             ->innerJoin('validation_authentification', 'utilisateur', 'u', 'validation_authentification.id_utilisateur = u.id_utilisateur')
             ->where('u.email = :email')
             ->andWhere('validation_authentification.pin = :pin')
-            ->setParameter('email', $email)
+            ->setParameter('email', strtolower($email))
             ->setParameter('pin', $pin)
             ->executeQuery()
             ->fetchAssociative();
@@ -145,7 +145,7 @@ class AuthentificationService
             ->select('id_utilisateur') // Nous récupérons seulement l'id_utilisateur
             ->from('utilisateur') // Table utilisateur
             ->where('email = :email') // Condition d'email
-            ->setParameter('email', $email) // Paramètre de l'email
+            ->setParameter('email',strtolower( $email)) // Paramètre de l'email
             ->executeQuery()
             ->fetchAssociative();
     
@@ -201,7 +201,7 @@ class AuthentificationService
             ->select('*')
             ->from('utilisateur') 
             ->where('email = :email AND mdp = MD5(:mdp)')
-            ->setParameter('email', $email) 
+            ->setParameter('email', strtolower($email)) 
             ->setParameter('mdp', $password)
             ->executeQuery() 
             ->fetchAssociative();
@@ -231,6 +231,7 @@ class AuthentificationService
             "Validation d'authentification Rojo Cloud",
             "Voici votre code PIN <h1>" .$pin. "</h1>"
         );
+        return $pin;
     }
 
     public function insertValidAuth(int $userId, string $pin)
@@ -264,7 +265,7 @@ class AuthentificationService
             ->set('tentative_restant', 'tentative_restant - :tentativeToTake') // Mise à jour de tentative_restant
             ->where('email = :email') // Condition
             ->setParameter('tentativeToTake', $tentativeToTake) // Paramètre
-            ->setParameter('email', $email); // Paramètre
+            ->setParameter('email', strtolower($email)); // Paramètre
 
         // Exécution de la requête
         $queryBuilder->execute();
@@ -295,7 +296,7 @@ class AuthentificationService
             ->update('utilisateur') // Nom de la table
             ->set('tentative_restant', '0') // Mise à jour de tentative_restant
             ->where('email = :email') // Condition
-            ->setParameter('email', $email); // Paramètre
+            ->setParameter('email', strtolower($email)); // Paramètre
 
         // Exécution de la requête
         $queryBuilder->execute();

@@ -61,7 +61,7 @@ class InscriptionController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         $pin = $this->inscriptionService->generatePin();
-        $email = $data['email'];
+        $email = strtolower($data['email']);
 
         $response = $this->inscriptionService->insertValidationInscriptionTemp([
             'nom' => $data['nom'],

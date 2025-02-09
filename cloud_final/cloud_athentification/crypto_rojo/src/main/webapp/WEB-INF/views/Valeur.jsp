@@ -95,7 +95,6 @@
                     <th scope="col">TotalAchat</th>
                     <th scope="col">TotalVente</th>
                     <th scope="col">Valeur portefeuille</th>
-                      <th scope="col">Valeur Crypto</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -105,7 +104,6 @@
                     <td><%= transaction.getAchat() %></td>
                     <td><%= transaction.getVente() %></td>
                     <td><%= transaction.getArgent() %></td>
-                    <td><%= transaction.getValeurCryptoReste() %></td>
                 </tr>
                 <%}}%>
 

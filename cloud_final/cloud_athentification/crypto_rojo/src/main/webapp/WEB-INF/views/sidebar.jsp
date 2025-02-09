@@ -46,6 +46,13 @@
           <span>Situation des utilisateurs</span>
         </a>
       </li>
+      <li class="nav-item">
+          <a class="nav-link collapsed" href="/historique">
+              <i class="bi bi-clock-history"></i>
+              <span>Historiques</span>
+          </a>
+      </li>
+
 
         <%if (utilisateur.getIs_admin()==1){%>
       <li class="nav-item">

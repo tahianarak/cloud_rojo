@@ -1,7 +1,10 @@
 package com.crypto.model;
 
 import com.crypto.model.Utilisateur;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,12 +19,15 @@ public class DepotRetraitTemporaire {
     @Column(name = "id_depot_retrait")
     private Long idDepotRetrait;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     @Column(name = "depot", precision = 15, scale = 2)
     private BigDecimal depot;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     @Column(name = "retrait", precision = 15, scale = 2)
     private BigDecimal retrait;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date_depot_retrait")
     private LocalDateTime dateDepotRetrait;
 
@@ -29,8 +35,33 @@ public class DepotRetraitTemporaire {
     @JoinColumn(name = "id_utilisateur", nullable = false)
     private Utilisateur utilisateur;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     @Transient
     BigDecimal solde;
+
+    @JsonSerialize(using = ToStringSerializer.class)
+    @Transient
+    String key_firebase;
+
+    @JsonSerialize(using = ToStringSerializer.class)
+    @Transient
+    String in_postgres;
+
+    public String getIn_postgres() {
+        return in_postgres;
+    }
+
+    public void setIn_postgres(String in_postgres) {
+        this.in_postgres = in_postgres;
+    }
+
+    public String getKey_firebase() {
+        return key_firebase;
+    }
+
+    public void setKey_firebase(String key_firebase) {
+        this.key_firebase = key_firebase;
+    }
 
     public BigDecimal getSolde() {
         return solde;
