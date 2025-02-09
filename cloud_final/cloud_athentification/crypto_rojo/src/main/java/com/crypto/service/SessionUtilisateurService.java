@@ -12,6 +12,8 @@ public class SessionUtilisateurService {
     public void deleteToken(String token)
     {
         SessionUtilisateur sessionUtilisateur = sessionUtilisateurRepository.getByToken(token);
-        sessionUtilisateurRepository.delete(sessionUtilisateur);
+        if (sessionUtilisateur != null){
+            sessionUtilisateurRepository.delete(sessionUtilisateur);
+        }
     }
 }
