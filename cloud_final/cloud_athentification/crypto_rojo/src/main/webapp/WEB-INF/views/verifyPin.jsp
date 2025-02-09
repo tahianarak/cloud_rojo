@@ -40,11 +40,6 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
-<%@ include file="header.jsp" %>
-  <!-- End Header -->
-
-
 <main id="main" class="main">
 
 

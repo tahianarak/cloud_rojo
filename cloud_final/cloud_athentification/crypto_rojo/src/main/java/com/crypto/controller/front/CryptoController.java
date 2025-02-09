@@ -61,10 +61,11 @@ public class CryptoController
         map.put("token",String.valueOf((String)session.getAttribute("token")));
 
         String reponse=Mapper.sendPostRequest(this.url+"/create",map,restTemplate);
-        String redirectString = "/insertVente";
+        String escapedResponse = reponse.replace("'", "\\'").replace("\"", "\\\"");
+        String redirectString = "/formulaireDeVente";
         PrintWriter writer = response.getWriter();
         writer.println("<script type='text/javascript'>"
-                + "alert('"+reponse+"');"
+                + "alert('"+escapedResponse+"');"
                 + "window.location.href = '" + redirectString + "';"
                 + "</script>");
 
