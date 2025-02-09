@@ -231,6 +231,7 @@ class AuthentificationService
             "Validation d'authentification Rojo Cloud",
             "Voici votre code PIN <h1>" .$pin. "</h1>"
         );
+        return $pin;
     }
 
     public function insertValidAuth(int $userId, string $pin)

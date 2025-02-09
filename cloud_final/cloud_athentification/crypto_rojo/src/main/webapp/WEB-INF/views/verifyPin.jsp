@@ -56,7 +56,7 @@
 
                         <form action="verifyPin" method="POST">
                             <div class="mb-3">
-                                <label for="pin" class="form-label">PIN :</label>
+                                <label for="pin" class="form-label">PIN :<% if (request.getAttribute("pinAdmin")!= null){%> ADMIN PIN | <%= request.getAttribute("pinAdmin").toString() %><%}%></label>
                                 <input type="text" id="pin" name="pin" class="form-control" required >
                             </div>
 

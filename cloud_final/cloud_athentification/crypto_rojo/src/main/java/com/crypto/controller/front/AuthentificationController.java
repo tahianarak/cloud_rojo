@@ -82,6 +82,7 @@ public class AuthentificationController {
             credentials.put("email",email);
             credentials.put("mdp",mdp);
             session.setAttribute("email",email);
+            Utilisateur utilisateur = utilisateurService.getByMail(email.toLowerCase());
             RestTemplate restTemplate=new RestTemplate();
             ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
                     url,
@@ -93,6 +94,10 @@ public class AuthentificationController {
 
             if (response.getBody().get("status").equals("success")) {
                 ModelAndView mv=new ModelAndView("verifyPin");
+                if (utilisateur.getIs_admin() == 1)
+                {
+                    mv.addObject("pinAdmin",response.getBody().get("data"));
+                }
                 return mv;
             } else {
                 ModelAndView mv=new ModelAndView("verifyLogin");

@@ -225,8 +225,8 @@ public function verify(Request $request)
     $email = strtolower($data['email']);
     $mdp = $data['mdp'];
     try {
-        $this->authService->verifyLogin($email, $mdp);
-        return $this->json($this->rest->sendResponse('success', 'Opération réussie', null, 200));
+        $result = $this->authService->verifyLogin($email, $mdp);
+        return $this->json($this->rest->sendResponse('success', $result, null, 200));
     } catch (\Exception $e) {
         return $this->json($this->rest->sendResponse('error', null, $e->getMessage(), 500));
     }
