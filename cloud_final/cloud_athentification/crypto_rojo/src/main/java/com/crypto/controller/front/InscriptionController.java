@@ -64,7 +64,6 @@ public class InscriptionController {
         userData.put("mdp",mdp);
         userData.put("app",this.app);
 
-        request.getSession().setAttribute("mdpTemp",mdp);
 
         RestTemplate restTemplate=RestConfig.restTemplate();
 
@@ -102,27 +101,25 @@ public class InscriptionController {
         );
         try
         {
-            if (((String)response.getBody().get("status")).equals("success"))
+            if (((String)response.getBody().get("status")).trim().compareTo("success")==0)
             {
                 session.setAttribute("token",(String)response.getBody().get("token"));
                 session.setAttribute("idUser" , response.getBody().get("id_user").toString());
                 Utilisateur user=utilisateurService.getById(response.getBody().get("id_user").toString());
                 session.setAttribute("user",user);
-                String mdpTemp = (String) request.getSession().getAttribute("mdpTemp");
-                System.out.println("MDP TEMP : "+mdpTemp);
-                this.firebaseServiceIns.signUp(user.getEmail(), mdpTemp);
-                request.getSession().removeAttribute("mdpTemp");
-                return  new ModelAndView("home");
+                this.firebaseServiceIns.signUp(user.getEmail(), ((String)response.getBody().get("mdp")));
+                return new ModelAndView("home");
             }
 
         }
         catch(Exception e)
         {
             ModelAndView mv= new ModelAndView("error");
-            mv.addObject("error","ce mail existe deja pour cet utilisateur");
+            mv.addObject("error",e.getMessage());
+            return mv;
         }
         ModelAndView mv= new ModelAndView("error");
-        mv.addObject("error",response.getBody().get("error"));
+        mv.addObject("error",response.getBody().toString()+" AND status : "+((String)response.getBody().get("status")));
         return mv;
 
     }

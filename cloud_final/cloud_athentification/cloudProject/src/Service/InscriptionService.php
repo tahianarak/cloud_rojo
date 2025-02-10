@@ -44,7 +44,7 @@ class InscriptionService
             INSERT INTO validation_inscription 
                 (nom, date_inscription, pin, date_naissance, email, mdp) 
                 VALUES 
-                (:nom, :date_inscription, :pin, :date_naissance, :email, MD5(:mdp))
+                (:nom, :date_inscription, :pin, :date_naissance, :email, :mdp)
             ";
             
             $stmt = $this->connection->prepare($sql);
@@ -77,7 +77,7 @@ class InscriptionService
             INSERT INTO utilisateur 
                 (nom, date_ens, date_naissance, email, mdp, tentative_restant,is_admin,photo_profil) 
             VALUES 
-            (:nom, :date_ens, :date_naissance, :email, :mdp , :tentative_restant,0,'profil.png')
+            (:nom, :date_ens, :date_naissance, :email, MD5(:mdp) , :tentative_restant,0,'profil.png')
             ";
             
             $stmt = $this->connection->prepare($sql);
@@ -91,7 +91,9 @@ class InscriptionService
             ]);
 
             return $this->formatResponse(
-                ['message' => 'Insertion réussie avec validation pin'],
+                ['message' => 'Insertion réussie avec validation pin',
+                    'mdp'  => $data['mdp']
+                    ],
                 null
             );
         } catch (\Exception $e) {
@@ -153,7 +155,8 @@ class InscriptionService
                 $user = $this->authentificationService->getUserByToken( $token ) ; 
                 $response['token'] = $token;
                 $response['id_user']= $user['id_utilisateur'] ;
-                $response['status'] = 'success'; 
+                $response['status'] = 'success';
+                $response['mdp'] = $response['data']['mdp'];
                 return $response; 
             } else {
                 $this->deleteValidationByPin($pin) ; 
