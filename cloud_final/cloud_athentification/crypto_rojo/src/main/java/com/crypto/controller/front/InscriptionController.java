@@ -6,6 +6,7 @@ import com.crypto.service.UserService;
 import com.crypto.model.crypto.User;
 import com.crypto.service.firebaseDany.FirebaseServiceIns;
 import com.crypto.service.utilisateur.UtilisateurService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -51,7 +52,7 @@ public class InscriptionController {
     UtilisateurService utilisateurService;
 
     @PostMapping("/inscrire")
-    public ModelAndView validerFormInscription(@RequestParam("email") String email,@RequestParam("nom") String nom,@RequestParam("date_naissance") String date_naissance,@RequestParam("mdp") String mdp, HttpSession session) throws  Exception{
+    public ModelAndView validerFormInscription(@RequestParam("email") String email, @RequestParam("nom") String nom, @RequestParam("date_naissance") String date_naissance, @RequestParam("mdp") String mdp, HttpSession session, HttpServletRequest request) throws  Exception{
         String url = symfonyLink+symfonyBaseUrl + "/valideInscription";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -63,7 +64,7 @@ public class InscriptionController {
         userData.put("mdp",mdp);
         userData.put("app",this.app);
 
-        session.setAttribute("mdpTemp",mdp);
+        request.getSession().setAttribute("mdpTemp",mdp);
 
         RestTemplate restTemplate=RestConfig.restTemplate();
 
@@ -84,7 +85,7 @@ public class InscriptionController {
     }
 
     @GetMapping("/valider")
-    public ModelAndView validerInscription(@RequestParam("pin") String pin, HttpSession session) {
+    public ModelAndView validerInscription(@RequestParam("pin") String pin, HttpSession session,HttpServletRequest request) {
         String url = UriComponentsBuilder.fromHttpUrl(symfonyLink+symfonyBaseUrl + "/inscriptionEmail")
                 .queryParam("pin", pin)
                 .toUriString();
@@ -107,8 +108,10 @@ public class InscriptionController {
                 session.setAttribute("idUser" , response.getBody().get("id_user").toString());
                 Utilisateur user=utilisateurService.getById(response.getBody().get("id_user").toString());
                 session.setAttribute("user",user);
-                this.firebaseServiceIns.signUp(user.getEmail(), (String) session.getAttribute("mdpTemp"));
-                session.setAttribute("mdpTemp",null);
+                String mdpTemp = (String) request.getSession().getAttribute("mdpTemp");
+                System.out.println("MDP TEMP : "+mdpTemp);
+                this.firebaseServiceIns.signUp(user.getEmail(), mdpTemp);
+                request.getSession().removeAttribute("mdpTemp");
                 return  new ModelAndView("home");
             }
 
