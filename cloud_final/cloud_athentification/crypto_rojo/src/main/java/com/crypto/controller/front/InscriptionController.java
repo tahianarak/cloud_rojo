@@ -108,6 +108,7 @@ public class InscriptionController {
                 Utilisateur user=utilisateurService.getById(response.getBody().get("id_user").toString());
                 session.setAttribute("user",user);
                 this.firebaseServiceIns.signUp(user.getEmail(), ((String)response.getBody().get("mdp")));
+                System.out.println("ok");
                 return new ModelAndView("home");
             }
 
