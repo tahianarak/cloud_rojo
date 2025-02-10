@@ -73,12 +73,12 @@
 
             <div class="mb-3">
               <label for="email" class="form-label text-light">Email :</label>
-              <input type="email" id="email" name="email" class="form-control" required style="background-color: #333; color: #fff; border-color: #2e3b31;">
+              <input type="email" id="email" name="email" class="form-control" required style="background-color: #333; color: #fff; border-color: #2e3b31;" value="randriavals2303@gmail.com">
             </div>
 
             <div class="mb-3">
               <label for="mdp" class="form-label text-light">Mot de Passe :</label>
-              <input type="password" id="mdp" name="mdp" class="form-control" required style="background-color: #333; color: #fff; border-color: #2e3b31;">
+              <input type="password" id="mdp" name="mdp" class="form-control" required style="background-color: #333; color: #fff; border-color: #2e3b31;" value="123456">
             </div>
 
             <div class="d-grid gap-2">
